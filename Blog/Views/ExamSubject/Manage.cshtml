@@ -1,0 +1,183 @@
+﻿@using Blog.Common;
+@using Blog.Pages;
+@using Blog.Infrastructure;
+@using Blog.Entities.V1;
+@Html.AntiForgeryToken()
+@model ExamSubject
+
+@{
+    ViewBag.Title = "Exam Subject";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-content-wrapper">
+    <!-- BEGIN CONTENT BODY -->
+    <div class="page-content">
+        <ul class="page-breadcrumb breadcrumb">
+            @*<li>
+                <span href="@Url.Action(Actions.Index, Controllers.Standard, new { area = "" })">@ViewBag.StandardName</span>
+            </li>*@
+            <li>
+                <a href="@Url.Action(Actions.Index, Controllers.ExamSubject, new { area = ""})">Exam Subject</a>
+            </li>
+            <li>
+                <span class="active" href="#">Exam Subject Add/Edit</span>
+            </li>
+        </ul>
+        <!-- END PAGE BREADCRUMB -->
+        <!-- BEGIN PAGE BASE CONTENT -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="portlet light bordered">
+                            <div class="portlet-title">
+                                <div class="caption font-dark">
+                                    <i class="font-dark"></i>
+                                    <span class="caption-subject bold uppercase">Exam Subject Add/Edit</span>
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                @using (Html.BeginForm(Actions.ExamSubjectAddEdit, Controllers.ExamSubject, FormMethod.Post, new { enctype = "", area = "", returnUrl = "", @id = "frmState", @class = "form-horizontal" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.HiddenFor(model => model.Id)
+                                    <div class="form-body">
+                                        <div class="alert alert-danger display-hide">
+                                            <button class="close" data-close="alert"></button> You have some form errors. Please check below.
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">
+                                                Select Exam
+                                                <span class="required"> * </span>
+                                            </label>
+                                            <div class="col-md-4">
+                                                @Html.DropDownListFor(model => model.ExamKey, (IEnumerable<SelectListItem>)ViewBag.Exam, "Select Exam", new { @class = "form-control select-cus" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">
+                                                Enter Subject Key
+                                                <span class="required"> * </span>
+                                            </label>
+                                            <div class="col-md-4">
+                                                @Html.TextBoxFor(model => model.SubjectKey, new { @class = "form-control", placeholder = "Subject Key", @maxlength = "100" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">
+                                                Enter Subject Name
+                                                <span class="required"> * </span>
+                                            </label>
+                                            <div class="col-md-4">
+                                                @Html.TextBoxFor(model => model.SubjectName, new { @class = "form-control", placeholder = "Subject Name", @maxlength = "100" })
+                                            </div>
+                                        </div>
+                                        <div class="form-actions">
+                                            <div class="row">
+                                                <div class="offset-md-3 col-md-7" style="text-align:right">
+                                                    <button type="submit" class="btn green">Submit</button>
+                                                    <a href="@Url.Action(Actions.Index, Controllers.ExamSubject , new { area = "" } )" title="Cancel" class="btn grey-salsa btn-outline">Cancel</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                <!-- END FORM-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END EXAMPLE TABLE PORTLET-->
+            </div>
+        </div>
+        <!-- END PAGE BASE CONTENT -->
+    </div>
+    <!-- END CONTENT BODY -->
+</div>
+
+
+<script type="text/javascript">
+
+
+    jQuery(document).ready(function () {
+        FormValidation.init();
+    });
+
+    var FormValidation = function () {
+        // basic validation
+        var handleValidation1 = function () {
+
+            var form1 = $('#frmState');
+            var error1 = $('.alert-danger', form1);
+            //var success1 = $('.alert-success', form1);
+
+            form1.validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block help-block-error', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: "",  // validate all fields including form hidden input
+                rules: {
+                    ExamKey: {
+                        required: true
+                    }, SubjectKey: {
+                        required: true
+                    }, SubjectName: {
+                        required: true
+                    }
+                },
+
+                invalidHandler: function (event, validator) { //display error alert on form submit
+                    //success1.hide();
+                    error1.show();
+                    App.scrollTo(error1, -200);
+                },
+
+                errorPlacement: function (error, element) { // render error placement for each input type
+                    var cont = $(element).parent('.input-group');
+                    if (cont.size() > 0) {
+                        cont.after(error);
+                    } else {
+                        element.after(error);
+                    }
+                },
+
+                highlight: function (element) { // hightlight error inputs
+                    $(element)
+                        .closest('.form-group').addClass('has-error'); // set error class to the control group
+                },
+
+                unhighlight: function (element) { // revert the change done by hightlight
+                    $(element)
+                        .closest('.form-group').removeClass('has-error'); // set error class to the control group
+                },
+
+                success: function (label) {
+                    label
+                        .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                },
+
+                submitHandler: function (form) {
+                    //success1.show();
+                    error1.hide();
+                    console.log($("#Id").val());
+                    $("#Id").val((atob($("#Id").val())));
+                    $("#frmState").val((atob($("#frmState").val())));
+                    form.submit();
+                    loaderon();
+                }
+            });
+        }
+
+        return {
+            //main function to initiate the module
+            init: function () {
+                handleValidation1();
+            }
+        };
+    }();
+
+</script>
+
+
+

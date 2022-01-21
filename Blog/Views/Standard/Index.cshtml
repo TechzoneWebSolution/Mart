@@ -1,0 +1,687 @@
+﻿@using Blog.Common;
+@using Blog.Pages;
+@using Blog.Infrastructure;
+@using Blog.Entities.V1;
+@Html.AntiForgeryToken()
+@model Standard
+
+@{
+    ViewBag.Title = "Standard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-content-wrapper">
+    <!-- BEGIN CONTENT BODY -->
+    <div class="page-content">
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <span class="active" href="#">Standard</span>
+            </li>
+        </ul>
+        <!-- END PAGE BREADCRUMB -->
+        <!-- BEGIN PAGE BASE CONTENT -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="portlet light bordered">
+                            <div class="portlet-title">
+                                <div class="caption font-dark">
+                                    <i class="font-dark"></i>
+                                    <span class="caption-subject bold uppercase">Standard</span>
+                                </div>
+                                <a href="@Url.Action(Actions.Manage, Controllers.Standard, new { area = "" })" class="btn btn-info" style="float:right;">Add</a>
+                            </div>
+                            <div class="portlet-body" id="divStandardTable">
+                                <table class="table table-striped table-bordered table-hover" id="StandardTable"></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END EXAMPLE TABLE PORTLET-->
+            </div>
+        </div>
+        <!-- END PAGE BASE CONTENT -->
+    </div>
+    <!-- END CONTENT BODY -->
+</div>
+<div id="myModalBanner" class="modal fade" data-controls-modal="myModal" data-backdrop="static" data-keyboard="false" style="background-color: rgba(97, 95, 95, 0.65); opacity: 1;">
+    <div class="modal-dialog" style="top:25%">
+        <div class="modal-content">
+            <div class="modal-header" style="background: #D3DBEA">
+                <h5 style="color: #6a9922;font-weight: 400;"> Upload Banner Json</h5>
+            </div>
+            @using (Html.BeginForm(Actions.Banner_json, Controllers.Standard, FormMethod.Post, new { enctype = "multipart/form-data", area = "", returnUrl = "", @id = "frmState", @class = "form-horizontal" }))
+            {
+                <div class="modal-body">
+
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.Id)
+                    <div class="row" style="display:flex">
+                        <div class="col-md-3">
+                            <label>
+                                Choose file
+                            </label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="custom-file ">
+                                <input type="file" name="Banner_json" class="custom-file-input form-control" id="Banner_json" />
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="BannerstandardId" />
+
+                </div>
+                <div class="modal-footer">
+                    <a data-dismiss="modal" id="successok" class="btn btn-success" style="background:#EC747C;color: #fff; border: none;" onclick="modelclose()">Cancel</a>
+                    <button type="submit" id="checkout" class="btn btn-success rejectbutton" style="background:#6a9922;color: #fff; border: none;" >Upload</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+
+<div id="myModalBanner2" class="modal fade" data-controls-modal="myModal" data-backdrop="static" data-keyboard="false" style="background-color: rgba(97, 95, 95, 0.65); opacity: 1;">
+    <div class="modal-dialog" style="top:25%">
+        <div class="modal-content">
+            <div class="modal-header" style="background: #D3DBEA">
+                <h5 style="color: #6a9922;font-weight: 400;"> Upload Home Screen Json</h5>
+            </div>
+            @using (Html.BeginForm(Actions.HomeScreen_json, Controllers.Standard, FormMethod.Post, new { enctype = "multipart/form-data", area = "", returnUrl = "", @id = "frmState2", @class = "form-horizontal" }))
+            {
+                <div class="modal-body">
+
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.StandardId)
+                    <div class="row" style="display:flex">
+                        <div class="col-md-3">
+                            <label>
+                                Choose file
+                            </label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="custom-file ">
+                                <input type="file" name="HomeScreen_json" class="custom-file-input form-control" id="HomeScreen_json" />
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="BannerstandardId2" />
+
+                </div>
+                <div class="modal-footer">
+                    <a data-dismiss="modal" id="successok" class="btn btn-success" style="background:#EC747C;color: #fff; border: none;" onclick="modelclose2()">Cancel</a>
+                    <button type="submit" id="checkout" class="btn btn-success rejectbutton" style="background:#6a9922;color: #fff; border: none;">Upload</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div id="myModalOtherAppData" class="modal fade" data-controls-modal="myModal" data-backdrop="static" data-keyboard="false" style="background-color: rgba(97, 95, 95, 0.65); opacity: 1;">
+    <div class="modal-dialog" style="top:25%">
+        <div class="modal-content">
+            <div class="modal-header" style="background: #D3DBEA">
+                <h5 style="color: #6a9922;font-weight: 400;"> Upload Other App Data</h5>
+            </div>
+            @using (Html.BeginForm(Actions.StandardOtherAppDataJsonUpdate, Controllers.Standard, FormMethod.Post, new { enctype = "multipart/form-data", area = "", returnUrl = "", @id = "frmState3", @class = "form-horizontal" }))
+            {
+                <div class="modal-body">
+
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.StandardId2)
+                    <div class="row" style="display:flex">
+                        <div class="col-md-3">
+                            <label>
+                                Choose file
+                            </label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="custom-file ">
+                                <input type="file" name="OtherAppData_JSON" class="custom-file-input form-control" id="HomeScreen_json" />
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="OtherAppDataBannerstandardId" />
+
+                </div>
+                <div class="modal-footer">
+                    <a data-dismiss="modal" id="successok" class="btn btn-success" style="background:#EC747C;color: #fff; border: none;" onclick="modelclose3()">Cancel</a>
+                    <button type="submit" id="checkout" class="btn btn-success rejectbutton" style="background:#6a9922;color: #fff; border: none;">Upload</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div id="myModalStandardCompetativeExams" class="modal fade" data-controls-modal="myModal" data-backdrop="static" data-keyboard="false" style="background-color: rgba(97, 95, 95, 0.65); opacity: 1;">
+    <div class="modal-dialog" style="top:25%">
+        <div class="modal-content">
+            <div class="modal-header" style="background: #D3DBEA">
+                <h5 style="color: #6a9922;font-weight: 400;"> Upload Competative Exams</h5>
+            </div>
+            @using (Html.BeginForm(Actions.StandardCompetativeExamsJsonUpdate, Controllers.Standard, FormMethod.Post, new { enctype = "multipart/form-data", area = "", returnUrl = "", @id = "frmState4", @class = "form-horizontal" }))
+            {
+                <div class="modal-body">
+
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.StandardId3)
+                    <div class="row" style="display:flex">
+                        <div class="col-md-3">
+                            <label>
+                                Choose file
+                            </label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="custom-file ">
+                                <input type="file" name="CompetativeExams_JSON" class="custom-file-input form-control" id="HomeScreen_json" />
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="StandardCompetativeExamsstandardId" />
+
+                </div>
+                <div class="modal-footer">
+                    <a data-dismiss="modal" id="successok" class="btn btn-success" style="background:#EC747C;color: #fff; border: none;" onclick="modelclose3()">Cancel</a>
+                    <button type="submit" id="checkout" class="btn btn-success rejectbutton" style="background:#6a9922;color: #fff; border: none;">Upload</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div id="myModalStandardOtherPDFModel" class="modal fade" data-controls-modal="myModal" data-backdrop="static" data-keyboard="false" style="background-color: rgba(97, 95, 95, 0.65); opacity: 1;">
+    <div class="modal-dialog" style="top:25%">
+        <div class="modal-content">
+            <div class="modal-header" style="background: #D3DBEA">
+                <h5 style="color: #6a9922;font-weight: 400;"> Upload Competative Exams</h5>
+            </div>
+            @using (Html.BeginForm(Actions.StandardOtherPDFMeterialUpdate, Controllers.Standard, FormMethod.Post, new { enctype = "multipart/form-data", area = "", returnUrl = "", @id = "frmState4", @class = "form-horizontal" }))
+            {
+                <div class="modal-body">
+
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(model => model.StandardId4)
+                    <div class="row" style="display:flex">
+                        <div class="col-md-3">
+                            <label>
+                                Choose file
+                            </label>
+                        </div>
+                        <div class="col-md-9">
+                            <div class="custom-file ">
+                                <input type="file" name="OtherPDFMeterialFile" class="custom-file-input form-control" id="OtherPDFMeterialFile" />
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="OtherPDFstandardId" />
+
+                </div>
+                <div class="modal-footer">
+                    <a data-dismiss="modal" id="successok" class="btn btn-success" style="background:#EC747C;color: #fff; border: none;" onclick="modelclose5()">Cancel</a>
+                    <button type="submit" id="checkout" class="btn btn-success rejectbutton" style="background:#6a9922;color: #fff; border: none;">Upload</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var CustomerDatatable = function () {
+
+        var userFlatsInitTable = function () {
+            var table = $('#StandardTable');
+
+        var oTable = table.dataTable({
+            "stateSave": false,
+            "autoWidth": false,
+            "paging": true,
+            "searching": true,
+            // Internationalisation. For more info refer to http://datatables.net/manual/i18n
+            "language": {
+                "aria": {
+                    "sortAscending": ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                },
+                "emptyTable": "No data available in table",
+                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                "infoEmpty": "No entries found",
+                "infoFiltered": "(filtered1 from _MAX_ total entries)",
+                "lengthMenu": "_MENU_ entries",
+                "search": "Search:",
+                "zeroRecords": "No matching records found"
+            },
+            "processing": true,
+            "serverSide": true,
+            "pageLength": 20,
+            "ajax": {
+                async: true,
+                url: '@Url.Action(Actions.BindStandard, Controllers.Standard, new { area =""})',
+                type: "post",
+                data: BuildSearchCriteria()
+            },
+            "columns": [
+                { "title": "Name", "data": "Name", "orderable": false },
+                { "title": "Key", "data": "Key", "orderable": false },
+                {
+                    "title": "Action", "data": "",
+                    "render": function (data, type, row) {
+                        var Id = btoa(row["Id"]);
+                        var appendstring = "";
+                        var url = "@Url.Action(Actions.Manage, Controllers.Standard, new { Area = ""})";
+                        var url2 = "@Url.Action(Actions.Index, Controllers.Subject, new { Area = ""})";
+                        appendstring += '<a  href="' + url + "?id=" + Id + '" title="Edit"  > <img src="@Url.Content("~/Styles/img/edit.png")" alt="Edit" /></a>&nbsp; ';
+                        appendstring += '<a  href="' + url2 + "?standardId=" + Id + '" title="Edit" class="btn btn-primary" >View Subject</a>&nbsp; ';
+                        appendstring += '<a title="upload banner" class="btn btn-primary" onclick="uploadBanner('+row["Id"]+')" >banner</a>&nbsp; ';
+                        appendstring += '<a title="upload HomeScreen" class="btn btn-primary" onclick="uploadBanner2(' + row["Id"] +')" >HomeScreen</a>&nbsp; ';
+                        appendstring += '<a title="upload Other App Data" class="btn btn-primary" onclick="uploadOtherAppData(' + row["Id"] +')" >Other App Data</a>&nbsp; ';
+                        appendstring += '<a title="upload Competative Exams" class="btn btn-primary" onclick="uploadCompetativeExams(' + row["Id"] +')" >Competative Exams</a>&nbsp; ';
+                        appendstring += '<a title="upload Other PDF Meterial" class="btn btn-primary" onclick="uploadOtherPDFExams(' + row["Id"] +')">Other PDF Meterial</a>&nbsp; ';
+                        return appendstring;
+                    }, "orderable": false
+                },
+            ],
+            "buttons": [],
+            "lengthMenu": [
+                [20, 50, 100,500],
+                [20, 50, 100,500]// change per page values here
+            ],
+            responsive: true,
+            "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
+            });
+    }
+
+    return {
+
+        init: function () {
+            if ($.fn.DataTable.isDataTable("#StandardTable")) {
+                $('#StandardTable').dataTable().fnDestroy();
+                $('#divStandardTable').html('<table class="table table-striped" width="100%" id="StandardTable"></table>');
+            }
+            userFlatsInitTable();
+        }
+
+    };
+
+    }();
+
+    function BuildSearchCriteria() {
+        try {
+            var param = {};
+            return addRequestVerificationToken(param);
+        } catch (e) { }
+    }
+    function uploadBanner(id) {
+        $('#myModalBanner').modal("show");
+        $('#BannerstandardId').val(id);
+    }
+    function modelclose() {
+        $('#myModalBanner').modal("hide");
+    }
+    function uploadBanner2(id) {
+        $('#myModalBanner2').modal("show");
+        $('#BannerstandardId2').val(id);
+    }
+   
+    function modelclose2() {
+        $('#myModalBanner2').modal("hide");
+    }
+    function uploadOtherAppData(id) {
+        $('#myModalOtherAppData').modal("show");
+        $('#OtherAppDataBannerstandardId').val(id);
+    } function modelclose3() {
+        $('#myModalOtherAppData').modal("hide");
+    }
+    function uploadCompetativeExams(id) {
+        $('#myModalStandardCompetativeExams').modal("show");
+        $('#StandardCompetativeExamsstandardId').val(id);
+    }
+    function modelclose4() {
+        $('#myModalStandardCompetativeExams').modal("hide");
+    }
+    function uploadOtherPDFExams(id) {
+        $('#myModalStandardOtherPDFModel').modal("show");
+        $('#StandardId4').val(id);
+    }
+    function modelclose5() {
+        $('#myModalStandardOtherPDFModel').modal("hide");
+    }
+    jQuery(document).ready(function () {
+        CustomerDatatable.init();
+        FormValidation.init();
+        FormValidation2.init();
+        FormValidation3.init();
+        FormValidation4.init();
+        FormValidation5.init();
+    });
+
+    var FormValidation = function () {
+        // basic validation
+        var handleValidation1 = function () {
+
+            var form1 = $('#frmState');
+            var error1 = $('.alert-danger', form1);
+            //var success1 = $('.alert-success', form1);
+
+            form1.validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block help-block-error', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: "",  // validate all fields including form hidden input
+                rules: {
+                },
+
+                invalidHandler: function (event, validator) { //display error alert on form submit
+                    //success1.hide();
+                    error1.show();
+                    App.scrollTo(error1, -200);
+                },
+
+                errorPlacement: function (error, element) { // render error placement for each input type
+                    var cont = $(element).parent('.input-group');
+                    if (cont.size() > 0) {
+                        cont.after(error);
+                    } else {
+                        element.after(error);
+                    }
+                },
+
+                highlight: function (element) { // hightlight error inputs
+                    $(element)
+                        .closest('.form-group').addClass('has-error'); // set error class to the control group
+                },
+
+                unhighlight: function (element) { // revert the change done by hightlight
+                    $(element)
+                        .closest('.form-group').removeClass('has-error'); // set error class to the control group
+                },
+
+                success: function (label) {
+                    label
+                        .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                },
+
+                submitHandler: function (form) {
+                    error1.hide();
+                    $("#Id").val(($("#BannerstandardId").val()));
+                    $("#frmState").val((atob($("#frmState").val())));
+                    form.submit();
+                    loaderon();
+                }
+            });
+        }
+
+        return {
+            //main function to initiate the module
+            init: function () {
+                handleValidation1();
+            }
+        };
+    }();
+
+    var FormValidation2 = function () {
+        // basic validation
+        var handleValidation1 = function () {
+
+            var form1 = $('#frmState2');
+            var error1 = $('.alert-danger', form1);
+            //var success1 = $('.alert-success', form1);
+
+            form1.validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block help-block-error', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: "",  // validate all fields including form hidden input
+                rules: {
+                },
+
+                invalidHandler: function (event, validator) { //display error alert on form submit
+                    //success1.hide();
+                    error1.show();
+                    App.scrollTo(error1, -200);
+                },
+
+                errorPlacement: function (error, element) { // render error placement for each input type
+                    var cont = $(element).parent('.input-group');
+                    if (cont.size() > 0) {
+                        cont.after(error);
+                    } else {
+                        element.after(error);
+                    }
+                },
+
+                highlight: function (element) { // hightlight error inputs
+                    $(element)
+                        .closest('.form-group').addClass('has-error'); // set error class to the control group
+                },
+
+                unhighlight: function (element) { // revert the change done by hightlight
+                    $(element)
+                        .closest('.form-group').removeClass('has-error'); // set error class to the control group
+                },
+
+                success: function (label) {
+                    label
+                        .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                },
+
+                submitHandler: function (form) {
+                    error1.hide();
+                    debugger;
+                    
+                    $("#StandardId").val(($("#BannerstandardId2").val()));
+                    $("#frmState2").val((atob($("#frmState2").val())));
+                    form.submit();
+                    loaderon();
+                }
+            });
+        }
+
+        return {
+            //main function to initiate the module
+            init: function () {
+                handleValidation1();
+            }
+        };
+    }();
+
+    var FormValidation3 = function () {
+        // basic validation
+        var handleValidation1 = function () {
+
+            var form1 = $('#frmState3');
+            var error1 = $('.alert-danger', form1);
+            //var success1 = $('.alert-success', form1);
+
+            form1.validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block help-block-error', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: "",  // validate all fields including form hidden input
+                rules: {
+                },
+
+                invalidHandler: function (event, validator) { //display error alert on form submit
+                    //success1.hide();
+                    error1.show();
+                    App.scrollTo(error1, -200);
+                },
+
+                errorPlacement: function (error, element) { // render error placement for each input type
+                    var cont = $(element).parent('.input-group');
+                    if (cont.size() > 0) {
+                        cont.after(error);
+                    } else {
+                        element.after(error);
+                    }
+                },
+
+                highlight: function (element) { // hightlight error inputs
+                    $(element)
+                        .closest('.form-group').addClass('has-error'); // set error class to the control group
+                },
+
+                unhighlight: function (element) { // revert the change done by hightlight
+                    $(element)
+                        .closest('.form-group').removeClass('has-error'); // set error class to the control group
+                },
+
+                success: function (label) {
+                    label
+                        .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                },
+
+                submitHandler: function (form) {
+                    error1.hide();
+                    debugger;
+                    
+                    $("#StandardId2").val(($("#OtherAppDataBannerstandardId").val()));
+                    $("#frmState3").val((atob($("#frmState3").val())));
+                    form.submit();
+                    loaderon();
+                }
+            });
+        }
+
+        return {
+            //main function to initiate the module
+            init: function () {
+                handleValidation1();
+            }
+        };
+    }();
+
+    var FormValidation4 = function () {
+        // basic validation
+        var handleValidation1 = function () {
+
+            var form1 = $('#frmState4');
+            var error1 = $('.alert-danger', form1);
+            //var success1 = $('.alert-success', form1);
+
+            form1.validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block help-block-error', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: "",  // validate all fields including form hidden input
+                rules: {
+                },
+
+                invalidHandler: function (event, validator) { //display error alert on form submit
+                    //success1.hide();
+                    error1.show();
+                    App.scrollTo(error1, -200);
+                },
+
+                errorPlacement: function (error, element) { // render error placement for each input type
+                    var cont = $(element).parent('.input-group');
+                    if (cont.size() > 0) {
+                        cont.after(error);
+                    } else {
+                        element.after(error);
+                    }
+                },
+
+                highlight: function (element) { // hightlight error inputs
+                    $(element)
+                        .closest('.form-group').addClass('has-error'); // set error class to the control group
+                },
+
+                unhighlight: function (element) { // revert the change done by hightlight
+                    $(element)
+                        .closest('.form-group').removeClass('has-error'); // set error class to the control group
+                },
+
+                success: function (label) {
+                    label
+                        .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                },
+
+                submitHandler: function (form) {
+                    error1.hide();
+                    debugger;
+                    
+                    $("#StandardId3").val(($("#StandardCompetativeExamsstandardId").val()));
+                    $("#frmState4").val((atob($("#frmState4").val())));
+                    form.submit();
+                    loaderon();
+                }
+            });
+        }
+
+        return {
+            //main function to initiate the module
+            init: function () {
+                handleValidation1();
+            }
+        };
+    }();
+
+    var FormValidation5 = function () {
+        // basic validation
+        var handleValidation1 = function () {
+
+            var form1 = $('#frmState5');
+            var error1 = $('.alert-danger', form1);
+            //var success1 = $('.alert-success', form1);
+
+            form1.validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block help-block-error', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: "",  // validate all fields including form hidden input
+                rules: {
+                },
+
+                invalidHandler: function (event, validator) { //display error alert on form submit
+                    //success1.hide();
+                    error1.show();
+                    App.scrollTo(error1, -200);
+                },
+
+                errorPlacement: function (error, element) { // render error placement for each input type
+                    var cont = $(element).parent('.input-group');
+                    if (cont.size() > 0) {
+                        cont.after(error);
+                    } else {
+                        element.after(error);
+                    }
+                },
+
+                highlight: function (element) { // hightlight error inputs
+                    $(element)
+                        .closest('.form-group').addClass('has-error'); // set error class to the control group
+                },
+
+                unhighlight: function (element) { // revert the change done by hightlight
+                    $(element)
+                        .closest('.form-group').removeClass('has-error'); // set error class to the control group
+                },
+
+                success: function (label) {
+                    label
+                        .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                },
+
+                submitHandler: function (form) {
+                    error1.hide();
+                    //$("#StandardId4").val($("#OtherPDFstandardId").val());
+                    $("#frmState5").val((atob($("#frmState5").val())));
+                    form.submit();
+                    loaderon();
+                }
+            });
+        }
+
+        return {
+            //main function to initiate the module
+            init: function () {
+                handleValidation1();
+            }
+        };
+    }();
+
+</script>
+
+

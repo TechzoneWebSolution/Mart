@@ -1,0 +1,146 @@
+﻿@using Blog.Common;
+@using Blog.Pages;
+@using Blog.Infrastructure;
+@using Blog.Entities.V1;
+@Html.AntiForgeryToken()
+
+@{
+    ViewBag.Title = "SubScription";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-content-wrapper">
+    <!-- BEGIN CONTENT BODY -->
+    <div class="page-content">
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <span class="active" href="#">SubScription</span>
+            </li>
+        </ul>
+        <!-- END PAGE BREADCRUMB -->
+        <!-- BEGIN PAGE BASE CONTENT -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="portlet light bordered">
+                            <div class="portlet-title">
+                                <div class="caption font-dark">
+                                    <i class="font-dark"></i>
+                                    <span class="caption-subject bold uppercase">SubScription</span>
+                                </div>
+                                <a href="@Url.Action(Actions.Manage, Controllers.SubScription, new { area = "" })" class="btn btn-info" style="float:right;">Add</a>
+                            </div>
+                            <div class="portlet-body" id="divSubScriptionTable">
+                                <table class="table table-striped table-bordered table-hover" id="SubScriptionTable"></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END EXAMPLE TABLE PORTLET-->
+            </div>
+        </div>
+        <!-- END PAGE BASE CONTENT -->
+    </div>
+    <!-- END CONTENT BODY -->
+</div>
+
+<script type="text/javascript">
+    var CustomerDatatable = function () {
+
+        var userFlatsInitTable = function () {
+        var table = $('#SubScriptionTable');
+
+        var oTable = table.dataTable({
+            "stateSave": false,
+            "autoWidth": false,
+            "paging": true,
+            "searching": true,
+            // Internationalisation. For more info refer to http://datatables.net/manual/i18n
+            "language": {
+                "aria": {
+                    "sortAscending": ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                },
+                "emptyTable": "No data available in table",
+                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                "infoEmpty": "No entries found",
+                "infoFiltered": "(filtered1 from _MAX_ total entries)",
+                "lengthMenu": "_MENU_ entries",
+                "search": "Search:",
+                "zeroRecords": "No matching records found"
+            },
+            "processing": true,
+            "serverSide": true,
+            "pageLength": 20,
+            "ajax": {
+                async: true,
+                url: '@Url.Action(Actions.BindSubScription, Controllers.SubScription, new { area =""})',
+                type: "post",
+                data: BuildSearchCriteria()
+            },
+            "columns": [
+                { "title": "Subscription Name", "data": "SubscriptionName", "orderable": false },
+                { "title": "Key", "data": "Key", "orderable": false },
+                { "title": "Description", "data": "Description", "orderable": false },
+                { "title": "Actual Price", "data": "ActualPrice", "ActualPrice": false },
+                { "title": "Offer Price", "data": "OfferPrice", "orderable": false },
+                  {
+                    "title": "Action", "data": "",
+                    "render": function (data, type, row) {
+                        var Id = btoa(row["Id"]);
+                        var appendstring = "";
+                        var url = "@Url.Action(Actions.Manage, Controllers.SubScription, new { Area = ""})";
+                        appendstring += '<a  href="' + url + "?id=" + Id + '" title="Edit"  > <img src="@Url.Content("~/Styles/img/edit.png")" alt="Edit" /></a>&nbsp; ';
+                        return appendstring;
+                    }, "orderable": false
+                },
+            ],
+            "buttons": [
+                @*{
+                    text: 'View All',
+                    className: 'btn green',
+                    action: function (e, dt, node, config) {
+                        window.location.href = "@Url.Action(Actions.Index, Controllers.Users, new { area = "" })";
+                    }
+                },*@
+            ],
+            "lengthMenu": [
+                [20, 50, 100, 500],
+                [20, 50, 100, 500]// change per page values here
+            ],
+            responsive: true,
+            "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
+            });
+    }
+
+    return {
+
+        init: function () {
+            if ($.fn.DataTable.isDataTable("#SubScriptionTable")) {
+                $('#SubScriptionTable').dataTable().fnDestroy();
+                $('#divSubScriptionTable').html('<table class="table table-striped" width="100%" id="SubScriptionTable"></table>');
+            }
+            userFlatsInitTable();
+        }
+
+    };
+
+    }();
+
+    function BuildSearchCriteria() {
+        try {
+            var param = {};
+            return addRequestVerificationToken(param);
+        } catch (e) { }
+    }
+
+
+    jQuery(document).ready(function () {
+        CustomerDatatable.init();
+    });
+
+
+</script>
+
+

@@ -1,0 +1,156 @@
+﻿@using Blog.Common;
+@using Blog.Pages;
+@using Blog.Infrastructure;
+@using Blog.Entities.V1;
+@Html.AntiForgeryToken()
+
+@{
+    ViewBag.Title = "Products";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <span class="active" href="#">Products</span>
+            </li>
+        </ul>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="portlet light bordered">
+                            <div class="portlet-title">
+                                <div class="caption font-dark">
+                                    <i class="font-dark"></i>
+                                    <span class="caption-subject bold uppercase">Products</span>
+                                </div>
+                                <a href="@Url.Action(Actions.Manage, Controllers.Products, new { area = ""})" class="btn btn-info" style="float:right;margin-left:5px;">Add</a>
+                            </div>
+                            <div class="portlet-body" id="divSubjectTable">
+                                <table class="table table-striped table-bordered table-hover" id="SubjectTable"></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var CustomerDatatable = function () {
+
+        var userFlatsInitTable = function () {
+            var table = $('#SubjectTable');
+
+            var oTable = table.dataTable({
+                "stateSave": false,
+                "autoWidth": false,
+                "paging": true,
+                "searching": true,
+                "language": {
+                    "aria": {
+                        "sortAscending": ": activate to sort column ascending",
+                        "sortDescending": ": activate to sort column descending"
+                    },
+                    "emptyTable": "No data available in table",
+                    "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                    "infoEmpty": "No entries found",
+                    "infoFiltered": "(filtered1 from _MAX_ total entries)",
+                    "lengthMenu": "_MENU_ entries",
+                    "search": "Search:",
+                    "zeroRecords": "No matching records found"
+                },
+                "processing": true,
+                "serverSide": true,
+                "pageLength": 20,
+                "ajax": {
+                    async: true,
+                    url: '@Url.Action(Actions.BindProducts, Controllers.Products, new { area =""})',
+                    type: "post",
+                    data: BuildSearchCriteria()
+                },
+                "columns": [
+                    { "title": "Product Name", "data": "ProductName", "orderable": false },
+                    { "title": "ProductType", "data": "ProductType", "orderable": false },
+                    { "title": "Price", "data": "Price", "orderable": false },
+                    { "title": "Selling Price", "data": "SellingPrice", "orderable": false },
+                    {
+                        "title": "Stock", "data": "Stock",
+                        "render": function (data, type, row) {
+                            var Id = "'" + btoa(row["Id"]) + "'";
+                            var appendstring = "";
+                            var url = "@Url.Action(Actions.Index, Controllers.ProductStockLedger, new { Area = ""})";
+                            appendstring += '<a  href="' + url + "?ProductId=" + btoa(row["Id"]) + '" title="open stock ledger"  ><span>' + row["Stock"] +'</span></a>&nbsp; ';
+                            return appendstring;
+                        },"orderable": false
+                    },
+                    {
+                        "title": "Action", "data": "",
+                        "render": function (data, type, row) {
+                            var Id = "'" + btoa(row["Id"]) + "'";
+                            var appendstring = "";
+                            var url = "@Url.Action(Actions.Manage, Controllers.Products, new { Area = ""})";
+                            appendstring += '<a  href="' + url + "?Id=" + btoa(row["Id"]) + '" title="Edit"  > <img src="@Url.Content("~/Styles/img/edit.png")" alt="Edit" /></a>&nbsp; ';
+                            appendstring += '<a  href="javascript:void(0);" onclick="ProductsDelete(' + Id + ')" title="Delete"><img src="@Url.Content("~/Styles/img/delete.png")" alt="Delete" /></a> ';
+                            return appendstring;
+                        }, "orderable": false
+                    },
+                ],
+                "buttons": [],
+                "lengthMenu": [
+                    [20, 50, 100, 500],
+                    [20, 50, 100, 500]// change per page values here
+                ],
+                responsive: true,
+                "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
+            });
+        }
+
+        return {
+
+            init: function () {
+                if ($.fn.DataTable.isDataTable("#SubjectTable")) {
+                    $('#SubjectTable').dataTable().fnDestroy();
+                    $('#divSubjectTable').html('<table class="table table-striped" width="100%" id="SubjectTable"></table>');
+                }
+                userFlatsInitTable();
+            }
+        };
+    }();
+
+    function BuildSearchCriteria() {
+        try {
+            var param = {};
+            return addRequestVerificationToken(param);
+        } catch (e) { }
+    }
+
+    jQuery(document).ready(function () {
+        CustomerDatatable.init();
+    });
+
+    function ProductsDelete(Id) {
+        $('.toast').remove();
+        ShowMessageToastr('@Enums.MessageType.info', 'Are you sure you want to delete this Product Type ?', true, 'ProductsDeleteAjax("' + Id + '")', "");
+    }
+
+    function ProductsDeleteAjax(Id) {
+        loaderon();
+         $.ajax({
+            url: '@Url.Action(Actions.Delete, Controllers.Products)',
+             data: { Id: Id},
+            type: 'Post',
+            datatype: 'json',
+             success: function (result) {
+                 loaderoff();
+                 window.location.reload();
+            }
+        });
+    }
+
+</script>
+
+

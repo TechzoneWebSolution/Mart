@@ -1,0 +1,28 @@
+{
+  "data": [
+    {
+      "name": "PDF 1",
+      "is_pdf": "1",
+      "file_name": "2020-10-02.pdf",
+      "date": "02 Aug 2020",
+      "download_url": "https://drive.google.com/u/0/uc?id=1FwgD0TCfqpcOTCtuRzMbbqnjhO1V5iV7&export=download",
+      "thumb_image": "https://drive.google.com/u/0/uc?id=16BP4ifPdEPkYOHmK9_bUHLFbnbOTrCyf&export=download"
+    },
+    {
+      "name": "PDF 2",
+      "is_pdf": "1",
+      "file_name": "2020-10-02.pdf",
+      "date": "02 Aug 2020",
+      "download_url": "https://drive.google.com/u/0/uc?id=1FwgD0TCfqpcOTCtuRzMbbqnjhO1V5iV7&export=download",
+      "thumb_image": "https://drive.google.com/u/0/uc?id=16BP4ifPdEPkYOHmK9_bUHLFbnbOTrCyf&export=download"
+    },
+    {
+      "name": "Video 1",
+      "is_pdf": "0",
+      "file_name": "",
+      "date": "02 Aug 2020",
+      "download_url": "https://www.youtube.com/watch?v=NtT_yLiUm2I",
+      "thumb_image": "https://drive.google.com/u/0/uc?id=16BP4ifPdEPkYOHmK9_bUHLFbnbOTrCyf&export=download"
+    }
+  ]
+}

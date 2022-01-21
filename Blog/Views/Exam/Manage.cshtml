@@ -1,0 +1,266 @@
+﻿@using Blog.Common;
+@using Blog.Pages;
+@using Blog.Infrastructure;
+@using Blog.Entities.V1;
+@Html.AntiForgeryToken()
+@model Exam
+
+@{
+    ViewBag.Title = "Exam";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <a href="@Url.Action(Actions.Index, Controllers.Exam, new { area = ""})">Exam</a>
+            </li>
+            <li>
+                <span class="active" href="#">Exam Add/Edit</span>
+            </li>
+        </ul>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="portlet light bordered">
+                            <div class="portlet-title">
+                                <div class="caption font-dark">
+                                    <i class="font-dark"></i>
+                                    <span class="caption-subject bold uppercase">Exam Add/Edit</span>
+                                </div>
+                            </div>
+                            <div class="portlet-body">
+                                @using (Html.BeginForm(Actions.ExamAddEdit, Controllers.Exam, FormMethod.Post, new { enctype = "multipart/form-data", area = "", returnUrl = "", @id = "frmState", @class = "form-horizontal" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.HiddenFor(model => model.Id)
+                                    <div class="form-body">
+                                        <div class="alert alert-danger display-hide">
+                                            <button class="close" data-close="alert"></button> You have some form errors. Please check below.
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">
+                                                Enter Exam Key
+                                                <span class="required"> * </span>
+                                            </label>
+                                            <div class="col-md-4">
+                                                @Html.TextBoxFor(model => model.ExamKey, new { @class = "form-control", placeholder = "Exam Key", @maxlength = "100" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">
+                                                Enter Name
+                                                <span class="required"> * </span>
+                                            </label>
+                                            <div class="col-md-4">
+                                                @Html.TextBoxFor(model => model.Name, new { @class = "form-control", placeholder = "Name", @maxlength = "100" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">
+                                                Enter Color
+                                                <span class="required"> * </span>
+                                            </label>
+                                            <div class="col-md-4">
+                                                @Html.TextBoxFor(model => model.Color, new { @class = "form-control", placeholder = "Color", @maxlength = "100" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">
+                                                Enter Question Time
+                                                <span class="required"> * </span>
+                                            </label>
+                                            <div class="col-md-4">
+                                                @Html.TextBoxFor(model => model.QuestionTime, new { @class = "form-control", placeholder = "Question Time", @maxlength = "100" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">
+                                                Enter Correct Answer Mark
+                                                <span class="required"> * </span>
+                                            </label>
+                                            <div class="col-md-4">
+                                                @Html.TextBoxFor(model => model.CorrectAnswerMark, new { @class = "form-control", placeholder = "Correct Answer Mark", @maxlength = "100" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">
+                                                Enter Wrong Answer Mark
+                                                <span class="required"> * </span>
+                                            </label>
+                                            <div class="col-md-4">
+                                                @Html.TextBoxFor(model => model.WrongAnswerMark, new { @class = "form-control", placeholder = "Wrong Answer Mark", @maxlength = "100" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">
+                                                Enter Exam Formats
+                                                <span class="required"> * </span>
+                                            </label>
+                                            <div class="col-md-4">
+                                                @Html.TextBoxFor(model => model.ExamFormats, new { @class = "form-control", placeholder = "Exam Formats", @maxlength = "100" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">
+                                                Enter Practice Format
+                                                <span class="required"> * </span>
+                                            </label>
+                                            <div class="col-md-4">
+                                                @Html.TextBoxFor(model => model.PracticeFormat, new { @class = "form-control", placeholder = "Practice Format", @maxlength = "100" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">
+                                                Enter Exam View NTA
+                                                <span class="required"> * </span>
+                                            </label>
+                                            <div class="col-md-4">
+                                                @Html.CheckBoxFor(model => model.ExamViewNTACheckBox, new { @class = "form-control", @style = "width:20px;" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">
+                                                (Subject ?)
+                                            </label>
+                                            <div class="col-md-4">
+                                                @Html.CheckBoxFor(model => model.IsSubjectCheckBox, new { @class = "form-control", @style = "width:20px;" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="control-label col-md-3">
+                                                Upload Excel
+                                                <span class="required"> * </span>
+                                            </label>
+                                            <div class="col-md-4">
+                                                @Html.TextBoxFor(model => model.ExcelFile, new { type = "file", @class = "custom-file-input form-control", accept = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" })
+                                            </div>
+                                        </div>
+                                        <div class="form-actions">
+                                            <div class="row">
+                                                <div class="offset-md-3 col-md-7" style="text-align:right">
+                                                    <button type="submit" class="btn green">Submit</button>
+                                                    <a href="@Url.Action(Actions.Index, Controllers.Exam , new { area = "" } )" title="Cancel" class="btn grey-salsa btn-outline">Cancel</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                                <!-- END FORM-->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END EXAMPLE TABLE PORTLET-->
+            </div>
+        </div>
+        <!-- END PAGE BASE CONTENT -->
+    </div>
+    <!-- END CONTENT BODY -->
+</div>
+
+
+<script type="text/javascript">
+
+
+    jQuery(document).ready(function () {
+        FormValidation.init();
+        jQuery.validator.addMethod("addfile", function (value, element) {
+            return @Model.Id > 0 || $("#ExcelFile").val() != "";
+        }, "This Field is Required.");
+
+    });
+
+    var FormValidation = function () {
+        var handleValidation1 = function () {
+            var form1 = $('#frmState');
+            var error1 = $('.alert-danger', form1);
+            form1.validate({
+                errorElement: 'span', //default input error message container
+                errorClass: 'help-block help-block-error', // default input error message class
+                focusInvalid: false, // do not focus the last invalid input
+                ignore: "",  // validate all fields including form hidden input
+                rules: {
+                    ExamKey: {
+                        required: true
+                    }, Name: {
+                        required: true
+                    }, Color: {
+                        required: true
+                    }, CorrectAnswerMark: {
+                        required: true
+                    }, WrongAnswerMark: {
+                        required: true
+                    }, ExamFormats: {
+                        required: true
+                    },
+                    QuestionTime: {
+                        required: true
+                    },
+                    PracticeFormat: {
+                        required: true
+                    },
+                    ExamViewNTA: {
+                        required: true
+                    },
+                    ExcelFile:
+                    {
+                        addfile: true,
+                    },
+                },
+
+                invalidHandler: function (event, validator) { //display error alert on form submit
+                    //success1.hide();
+                    error1.show();
+                    App.scrollTo(error1, -200);
+                },
+
+                errorPlacement: function (error, element) { // render error placement for each input type
+                    var cont = $(element).parent('.input-group');
+                    if (cont.size() > 0) {
+                        cont.after(error);
+                    } else {
+                        element.after(error);
+                    }
+                },
+
+                highlight: function (element) { // hightlight error inputs
+                    $(element)
+                        .closest('.form-group').addClass('has-error'); // set error class to the control group
+                },
+
+                unhighlight: function (element) { // revert the change done by hightlight
+                    $(element)
+                        .closest('.form-group').removeClass('has-error'); // set error class to the control group
+                },
+
+                success: function (label) {
+                    label
+                        .closest('.form-group').removeClass('has-error'); // set success class to the control group
+                },
+
+                submitHandler: function (form) {
+                    //success1.show();
+                    error1.hide();
+                    $("#Id").val((atob($("#Id").val())));
+                    $("#frmState").val((atob($("#frmState").val())));
+                    form.submit();
+                    loaderon();
+                }
+            });
+        }
+
+        return {
+            //main function to initiate the module
+            init: function () {
+                handleValidation1();
+            }
+        };
+    }();
+
+</script>
+
+
+

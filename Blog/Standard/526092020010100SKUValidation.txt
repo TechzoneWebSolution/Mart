@@ -1,0 +1,37 @@
+Temp
+1) Sagar Product -> Sagar_1 Variant with Color 
+2) Sagar Product -> Sagar_1 Variant with Color Different Color - Error
+3) Sagar Product -> Sagar_2 Variant with Color Different Color 
+4) Sagar Product -> Sagar_2 Variant with Color Different Color 
+
+Temp
+1) Darshan Product -> Sagar_1 Variant with Size (3 variant Select) 
+2) Darshan Product -> Sagar_1 Variant with Size Different Size - Error 
+3) Darshan Product -> Sagar_2 Variant with Size Different Size 
+4) Darshan Product -> Sagar_2 Variant with Size Different Size 
+
+
+Temp
+Color Add All
+1) DarshanV Product -> Sagar_1 Variant with Size (3 variant Select)
+2) DarshanV Product -> Sagar_1 Variant with Size Different Size - Error
+3) DarshanV Product -> Sagar_2 Variant with Size Different Size
+4) DarshanV Product -> Sagar_2 Variant with Size Different Size 
+
+Send For Approval(9 Product Approve)
+
+Temp
+1) Dharma Product -> Sagar_1 Variant with Color
+2) Dharma Product -> Sagar_1 Variant with Color Different Color - Error 
+
+Temp
+Product Add ma SKU = DarshanV
+1) DarshanV Product -> Sagar_1 Variant with Size (3 variant Select) - Error
+
+Temp
+Product Add ma SKU = Darshan
+1) Darshan Product -> Sagar_1 Variant with Size (3 variant Select) - Error
+
+Temp
+Product Add ma SKU = Sagar
+1) Sagar Product -> Sagar_1 Variant with Color - Error

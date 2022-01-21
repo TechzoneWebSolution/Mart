@@ -1,0 +1,294 @@
+﻿<!-- REFERENCES -->
+@using Blog.Pages;
+@using Blog.Infrastructure;
+@using Blog.Entities.V1;
+
+@model User
+@{
+    ViewBag.Title = "Mart";
+    Layout = null;
+    string userName = string.Empty;
+    string password = string.Empty;
+
+    if (Request.Cookies["AdminUserLogin"] != null)
+    {
+        userName = Convert.ToString(Request.Cookies["AdminUserLogin"].Values["UserName"]);
+        password = Convert.ToString(Request.Cookies["AdminUserLogin"].Values["Password"]);
+    }
+}
+<!doctype html>
+<html>
+
+<!-- BEGIN HEADER -->
+
+<head>
+    <meta charset="utf-8">
+    <title>SignUp | Mart</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+    @*<link rel="shortcut icon" href="~/images/favicon.png" />*@
+
+    @Styles.Render("~/Styles/globalstyles")
+
+    @Styles.Render("~/Styles/pluginsstyles")
+
+    @Styles.Render("~/Styles/themestyles")
+
+    <link href="~/Styles/login.min.css" rel="stylesheet" type="text/css" />
+
+    @Scripts.Render("~/bundles/corepulgins")
+</head>
+
+<!-- END HEADER -->
+<!-- BEGIN BODY -->
+
+<body class=" login">
+    <!-- BEGIN LOGO -->
+    <div class="logo" style="margin: 10px auto 0;">
+        <a href="#">
+            <img src="/Images/BlogLogo.png" alt="" width="220px" />
+        </a>
+    </div>
+    <!-- END LOGO -->
+    <!-- BEGIN LOGIN -->
+    <div class="content">
+        <!-- BEGIN LOGIN FORM -->
+        @using (Html.BeginForm(Actions.Register, Controllers.Account, new { Area = "" }, FormMethod.Post, new { id = "frmlogin", @class = "login-form" }))
+        {
+            @Html.AntiForgeryToken()
+        <h3 class="form-title font-green">SignUp</h3>
+            <div class="form-group">
+                <label class="control-label visible-ie8 visible-ie9">First Name <span>*</span></label>
+                @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control form-control-solid placeholder-no-fix", @placeholder = "Please Enter First Name",autocomplete = "off" })
+            </div>
+            <div class="form-group">
+                <label class="control-label visible-ie8 visible-ie9">Last Name <span>*</span></label>
+                @Html.TextBoxFor(model => model.LastName, new { @class = "form-control form-control-solid placeholder-no-fix", @placeholder = "Please Enter Last Name", autocomplete = "off" })
+            </div>
+            <div class="form-group">
+                <label class="control-label visible-ie8 visible-ie9">Email <span>*</span></label>
+                @Html.TextBoxFor(model => model.Email, new { @class = "form-control form-control-solid placeholder-no-fix", @placeholder = "Please Enter Email", autocomplete = "off" })
+            </div>
+            <div class="form-group">
+                <label class="control-label visible-ie8 visible-ie9">Mobile <span>*</span></label>
+                @Html.TextBoxFor(model => model.Mobile, new { @class = "form-control form-control-solid placeholder-no-fix", @onkeypress = "return isNumber(event)", @placeholder = "Please Enter Mobile", autocomplete = "off" })
+            </div>
+            <div class="form-group">
+                <label class="control-label visible-ie8 visible-ie9">Password <span>*</span></label>
+                @Html.TextBoxFor(model => model.Password, new { @class = "form-control form-control-solid placeholder-no-fix", @placeholder = "Please Enter Password", autocomplete = "off" })
+            </div>
+            <div class="form-group">
+                <label class="control-label visible-ie8 visible-ie9">Address <span>*</span></label>
+                @Html.TextAreaFor(model => model.Address, new { @class = "form-control form-control-solid placeholder-no-fix", @placeholder = "Please Enter Address", autocomplete = "off" })
+            </div>
+            <div class="form-group">
+                <label class="control-label visible-ie8 visible-ie9">State <span>*</span></label>
+                @Html.TextAreaFor(model => model.StateId, new { @class = "form-control form-control-solid placeholder-no-fix", @placeholder = "Please Enter Address", autocomplete = "off" })
+            </div>
+            <div class="form-group">
+                <label class="control-label visible-ie8 visible-ie9">District <span>*</span></label>
+                @Html.TextAreaFor(model => model.DistrictId, new { @class = "form-control form-control-solid placeholder-no-fix", @placeholder = "Please Enter Address", autocomplete = "off" })
+            </div>
+            <div class="form-group">
+                <label class="control-label visible-ie8 visible-ie9">Taluka <span>*</span></label>
+                @Html.TextAreaFor(model => model.TalukaId, new { @class = "form-control form-control-solid placeholder-no-fix", @placeholder = "Please Enter Address", autocomplete = "off" })
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn green uppercase">SignUp</button>
+                @*<a href="javascript:;" id="forget-password" class="forget-password">Forgot Password?</a>*@
+            </div>
+        }
+    </div>
+    <div class="copyright"> @DateTime.Now.Year © Mart <a href="#">Privacy Policy</a> . All rights reserved.</div>
+
+    <!-- PopUp -->
+    @Html.Raw(ViewBag.openPopup)
+
+    <!-- BEGIN PAGE LEVEL PLUGINS -->
+    @Scripts.Render("~/bundles/jqval")
+    <!-- END PAGE LEVEL PLUGINS -->
+
+    @Scripts.Render("~/bundles/toaster")
+
+    @Scripts.Render("~/bundles/commonscripts")
+    <!-- BEGIN THEME GLOBAL SCRIPTS -->
+    @Scripts.Render("~/bundles/globalscripts")
+    <!-- END THEME GLOBAL SCRIPTS -->
+    <!-- SCRIPT AND FORM VALIDATION -->
+    <script>
+
+        jQuery(document).ready(function () {
+
+            //Initialise Validation Variable
+            Login.init();
+            ForgotPassword.init();
+            function isNumber(evt) {
+                evt = (evt) ? evt : window.event;
+                var charCode = (evt.which) ? evt.which : evt.keyCode;
+                if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+                    return false;
+                }
+                return true;
+            }
+            //HideShow Form
+            //$("#forget-password").click(function () {
+            //    $(".login-form").hide();
+            //    $(".forget-form").show();
+            //});
+
+            //$("#back-btn").click(function () {
+            //    $(".login-form").show();
+            //    $(".forget-form").hide();
+            //});
+
+        });
+
+        //Model TimeOut
+        $(function () {
+            setTimeout(function () {
+                $(':input:enabled:visible:first').focus();
+                $('.modal.fade').off('shown.bs.modal').on('shown.bs.modal', function () {
+                    $(this).find('input:enabled:visible:first').focus();
+                });
+            }, 200);
+        });
+
+        //Validation Login
+        var Login = function () {
+            var handleLogin = function () {
+
+                $('#frmlogin').validate({
+                    errorElement: 'span', //default input error message container
+                    errorClass: 'help-block', // default input error message class
+                    focusInvalid: false, // do not focus the last invalid input
+                    rules: {
+                        Email: {
+                            required: true,
+                            email: true
+                        },
+                        FirstName: {
+                            required: true,
+                        },
+                        LastName: {
+                            required: true,
+                        }, Mobile: {
+                            required: true,
+                            minlength: 10,
+                            maxlength: 10,
+                        },
+                        Password: {
+                            required: true
+                        }
+                    },
+
+                    invalidHandler: function (event, validator) { //display error alert on form submit
+                    },
+
+                    highlight: function (element) { // hightlight error inputs
+                        $(element)
+                            .closest('.form-group').addClass('has-error'); // set error class to the control group
+                    },
+
+                    success: function (label) {
+                        label.closest('.form-group').removeClass('has-error');
+                        label.remove();
+                    },
+
+                    errorPlacement: function (error, element) {
+                        if (element.closest('.input-icon').size() === 1) {
+                            error.insertAfter(element.closest('.input-icon'));
+                        } else {
+                            error.insertAfter(element);
+                        }
+                    },
+
+                    submitHandler: function (form) {
+                        form.submit(); // form validation success, call ajax form submit
+                    }
+                });
+
+                $('#frmlogin input').keypress(function (e) {
+                    if (e.which == 13) {
+
+                        if ($('#frmlogin').validate().form()) {
+                            $('#frmlogin').submit(); //form validation success, call ajax form submit
+                        }
+                        return false;
+                    }
+                });
+            }
+
+            return {
+                init: function () {
+                    handleLogin();
+                }
+            };
+
+        }();
+
+        //Validation ForgotPassword
+        var ForgotPassword = function () {
+            var handleForgotPassword = function () {
+
+                $('#forgotpwdform').validate({
+                    errorElement: 'span', //default input error message container
+                    errorClass: 'help-block', // default input error message class
+                    focusInvalid: false, // do not focus the last invalid input
+                    rules: {
+                        Email: {
+                            required: true,
+                            email: true
+                        }
+                    },
+
+                    invalidHandler: function (event, validator) { //display error alert on form submit
+                    },
+
+                    highlight: function (element) { // hightlight error inputs
+                        $(element)
+                            .closest('.form-group').addClass('has-error'); // set error class to the control group
+                    },
+
+                    success: function (label) {
+                        label.closest('.form-group').removeClass('has-error');
+                        label.remove();
+                    },
+
+                    errorPlacement: function (error, element) {
+                        if (element.closest('.input-icon').size() === 1) {
+                            error.insertAfter(element.closest('.input-icon'));
+                        } else {
+                            error.insertAfter(element);
+                        }
+                    },
+
+                    submitHandler: function (form) {
+                        form.submit(); // form validation success, call ajax form submit
+                    }
+                });
+
+                $('#forgotpwdform input').keypress(function (e) {
+                    if (e.which == 13) {
+
+                        if ($('#forgotpwdform').validate().form()) {
+                            $('#forgotpwdform').submit(); //form validation success, call ajax form submit
+                        }
+                        return false;
+                    }
+                });
+            }
+
+            return {
+                init: function () {
+                    handleForgotPassword();
+                }
+            };
+
+        }();
+
+    </script>
+</body>
+
+<!-- END BODY -->
+</html>

@@ -1,0 +1,120 @@
+{
+  "data": {
+    "maths": [
+      {
+        "id": "3",
+        "isdemo" : "1",
+        "chapter": "૦૩",
+        "name": "શ્રેણિક",
+        "pdffiles": [
+          {
+            "no": "૦૧",
+            "name": "સંબંધની સમજણ-પ્રદેશ-વિસ્તાર-પ્રકાર",
+            "isfree": "0",
+            "file_name": "maths-pdf-01-01.pdf",
+            "download_url": "https://drive.google.com/u/0/uc?id=1pCyIi1FDlzKHCbGBPhYKpmw2viiT9Jrp&export=download",
+            "thumb_image": "https://drive.google.com/u/0/uc?id=16BP4ifPdEPkYOHmK9_bUHLFbnbOTrCyf&export=download"
+          },
+          {
+            "no": "૦૨",
+            "name": "વિસ્તાર અને પ્રદેશ શોધવા (ભાગ ૧)",
+            "isfree": "0",
+            "file_name": "maths-pdf-01-02.pdf",
+            "download_url": "https://drive.google.com/u/0/uc?id=1pCyIi1FDlzKHCbGBPhYKpmw2viiT9Jrp&export=download",
+            "thumb_image": "https://drive.google.com/u/0/uc?id=16BP4ifPdEPkYOHmK9_bUHLFbnbOTrCyf&export=download"
+          },
+          {
+            "no": "૦૩",
+            "name": "વિસ્તાર અને પ્રદેશ શોધવા (ભાગ ૨)",
+            "isfree": "0",
+            "file_name": "maths-pdf-01-03.pdf",
+            "download_url": "https://drive.google.com/u/0/uc?id=1pCyIi1FDlzKHCbGBPhYKpmw2viiT9Jrp&export=download",
+            "thumb_image": "https://drive.google.com/u/0/uc?id=16BP4ifPdEPkYOHmK9_bUHLFbnbOTrCyf&export=download"
+          }
+        ],
+        "files": [
+          {
+            "no": "૦૧",
+            "name": "અનુક્રમણિકા અને પ્રસ્તાવના",
+            "isfree": "0",
+            "file_name": "maths-03-01.mp4",
+            "download_url": "https://www.dropbox.com/s/9vxnj00wd9nrv7v/01%20Title%20And%20Index.mp4?dl=1",
+            "thumb_image": "https://drive.google.com/u/0/uc?id=1zlbJgl4G98hkF8aSS7nYwcDyiuR1VvHK&export=download"
+          },
+          {
+            "no": "૦૨",
+            "name": "બેઝીક અને આપેલા ગુણધર્મોવાળો શ્રેણિક મેળવવો",
+            "isfree": "0",
+            "file_name": "maths-03-02.mp4",
+            "download_url": "https://www.dropbox.com/s/enfixgmo8n2mlk4/02%20Basics%20and%20aapela%20gundharmo%20valo%20srenik%20melavvo.mp4?dl=1",
+            "thumb_image": "https://drive.google.com/u/0/uc?id=1zlbJgl4G98hkF8aSS7nYwcDyiuR1VvHK&export=download"
+          },
+          {
+            "no": "૦૩",
+            "name": "સરવાળા-બાદબાકી તથા અદીશ સાથેનો ગુણાકાર મેળવવો ",
+            "isfree": "0",
+            "file_name": "maths-03-03.mp4",
+            "download_url": "https://www.dropbox.com/s/snlut6bno8a8uc6/03%20Sarvala-tafavat%2C%20adish%20satheno%20gunakar%20melavvo.mp4?dl=1",
+            "thumb_image": "https://drive.google.com/u/0/uc?id=1zlbJgl4G98hkF8aSS7nYwcDyiuR1VvHK&export=download"
+          },
+          {
+            "no": "૦૪",
+            "name": "સમાન શ્રેણિક તથા શ્રેણિક સમીકરણ પર આધારિત ",
+            "isfree": "0",
+            "file_name": "maths-03-04.mp4",
+            "download_url": "https://www.dropbox.com/s/gdb0w6mcb78ie15/04%20saman%20srenik-%20srenik%20samikaran%20par%20aadharit.mp4?dl=1",
+            "thumb_image": "https://drive.google.com/u/0/uc?id=1zlbJgl4G98hkF8aSS7nYwcDyiuR1VvHK&export=download"
+          },
+          {
+            "no": "૦5",
+            "name": "પરીવર્ત શ્રેણિક",
+            "isfree": "0",
+            "file_name": "maths-03-05.mp4",
+            "download_url": "https://www.dropbox.com/s/d0uo1qitw3817s6/05%20Transpose%20of%20Metrix.mp4?dl=1",
+            "thumb_image": "https://drive.google.com/u/0/uc?id=1zlbJgl4G98hkF8aSS7nYwcDyiuR1VvHK&export=download"
+          },
+          {
+            "no": "૦૬",
+            "name": "શ્રેણિકનાં ગુણાકાર પર આધારિત (ભાગ ૧)",
+            "isfree": "0",
+            "file_name": "maths-03-06.mp4",
+            "download_url": "https://www.dropbox.com/s/gb55o3q6ivo74ru/06%20sreniko%20na%20gunakar%20par%20aadharit-1.mp4?dl=1",
+            "thumb_image": "https://drive.google.com/u/0/uc?id=1zlbJgl4G98hkF8aSS7nYwcDyiuR1VvHK&export=download"
+          },
+          {
+            "no": "૦૭",
+            "name": "શ્રેણિકનાં ગુણાકાર પર આધારિત (ભાગ ૨)",
+            "isfree": "0",
+            "file_name": "maths-03-07.mp4",
+            "download_url": "https://www.dropbox.com/s/5h10d39y3nrsahg/07%20sreniko%20na%20gunakar%20par%20aadharit-2.mp4?dl=1",
+            "thumb_image": "https://drive.google.com/u/0/uc?id=1zlbJgl4G98hkF8aSS7nYwcDyiuR1VvHK&export=download"
+          },
+          {
+            "no": "૦૮",
+            "name": "શ્રેણિકોનાં ગુણાકાર પરથી સમીકરણ ઉકેલવા ",
+            "isfree": "0",
+            "file_name": "maths-03-08.mp4",
+            "download_url": "https://www.dropbox.com/s/du42t5benqyyu5e/08%20sreniko%20na%20gunakar%20parthi%20samikaran%20ukelva.mp4?dl=1",
+            "thumb_image": "https://drive.google.com/u/0/uc?id=1zlbJgl4G98hkF8aSS7nYwcDyiuR1VvHK&export=download"
+          },
+          {
+            "no": "૦૯",
+            "name": "હાર-સંક્ષેપન એશીલોન પધ્ધતિથી વ્યસ્ત શ્રેણિક શોધવો ",
+            "isfree": "0",
+            "file_name": "maths-03-09.mp4",
+            "download_url": "https://www.dropbox.com/s/58v3u4c5cy8n6xv/09%20Har-sanxepan%20eshilon%20padhdhatithi%20inverse.mp4?dl=1",
+            "thumb_image": "https://drive.google.com/u/0/uc?id=1zlbJgl4G98hkF8aSS7nYwcDyiuR1VvHK&export=download"
+          },
+          {
+            "no": "૧૦",
+            "name": "પ્રકીર્ણ દાખલાઓ ",
+            "isfree": "0",
+            "file_name": "maths-03-10.mp4",
+            "download_url": "https://www.dropbox.com/s/rz12xpr1jysyc0w/10%20Prikirn%20Dakhlao.mp4?dl=1",
+            "thumb_image": "https://drive.google.com/u/0/uc?id=1zlbJgl4G98hkF8aSS7nYwcDyiuR1VvHK&export=download"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,286 @@
+﻿@using Blog.Common;
+@using Blog.Pages;
+@using Blog.Infrastructure;
+@using Blog.Entities.V1;
+@Html.AntiForgeryToken()
+
+@{
+    ViewBag.Title = "Exam Question";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <span class="active" href="#">Exam Question</span>
+            </li>
+        </ul>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="portlet light bordered">
+                            <div class="portlet-title">
+                                <div class="caption font-dark">
+                                    <i class="font-dark"></i>
+                                    <span class="caption-subject bold uppercase">Exam Question</span>
+                                </div>
+                            </div>
+                            <div class="form-body row mt-2">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-2 col-sm-12" style=";margin-top:5px;">
+                                            @Html.DropDownList("ExamKey", (IEnumerable<SelectListItem>)ViewBag.Exam, "Select Exam", new { @class = "form-control select-cus" })
+                                        </div> 
+                                        <div class="col-md-2 col-sm-12" style=";margin-top:5px;">
+                                            @Html.DropDownList("SubjectKey", (IEnumerable<SelectListItem>)ViewBag.Subject, "Select Subject", new { @class = "form-control select-cus" })
+                                        </div>
+                                        <div class="col-md-2 col-sm-12" style=";margin-top:5px;">
+                                            @Html.DropDownList("ChapterKey", (IEnumerable<SelectListItem>)ViewBag.Chapter, "Select Chapter", new { @class = "form-control select-cus" })
+                                        </div>
+                                        <div class="col-md-6 col-sm-12 " style="text-align:right;margin-top:5px;">
+                                            <button type="button" class="btn green si ri" onclick="CustomerDatatable.init();">Filter</button>
+                                            <button type="button" class="btn default si ri" onclick="clearfilter();" style="background-color:lightgray;">Clear</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="portlet-body" id="divSubjectTable">
+                                <table class="table table-striped table-bordered table-hover" id="SubjectTable"></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myModalBanner" class="modal fade" data-controls-modal="myModal" data-backdrop="static" data-keyboard="false" style="background-color: rgba(97, 95, 95, 0.65); opacity: 1;">
+    <div class="modal-dialog" style="top:25%">
+        <div class="modal-content">
+            <div class="modal-header" style="background: #D3DBEA">
+                <h5 style="color: #6a9922;font-weight: 400;">Image</h5>
+            </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <img src="" id="imagesrc" style="width:100%;" />
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <a data-dismiss="modal" id="successok" class="btn btn-success" style="background:#EC747C;color: #fff; border: none;" onclick="modelclose()">Cancel</a>
+                </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    function uploadBanner(src) {
+        debugger;
+        $('#myModalBanner').modal("show");
+        $('#imagesrc').attr("src",src);
+    }
+    function modelclose() {
+        $('#myModalBanner').modal("hide");
+    }
+    var CustomerDatatable = function () {
+
+        var userFlatsInitTable = function () {
+            var table = $('#SubjectTable');
+
+            var oTable = table.dataTable({
+                "stateSave": false,
+                "autoWidth": false,
+                "paging": true,
+                "searching": true,
+                "language": {
+                    "aria": {
+                        "sortAscending": ": activate to sort column ascending",
+                        "sortDescending": ": activate to sort column descending"
+                    },
+                    "emptyTable": "No data available in table",
+                    "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                    "infoEmpty": "No entries found",
+                    "infoFiltered": "(filtered1 from _MAX_ total entries)",
+                    "lengthMenu": "_MENU_ entries",
+                    "search": "Search:",
+                    "zeroRecords": "No matching records found"
+                },
+                "processing": true,
+                "serverSide": true,
+                "pageLength": 20,
+                "ajax": {
+                    async: true,
+                    url: '@Url.Action(Actions.BindExamQuestion, Controllers.ExamQuestion, new { area =""})',
+                    type: "post",
+                    data: BuildSearchCriteria()
+                },
+                "columns": [
+                    {
+                        "title": "Question Image", "data": "",
+                        "render": function (data, type, row) {
+                            var image = '"' + row["QuestionImage"]+ '"';
+                            return "<img src='" + row["QuestionImage"] + "' onclick='uploadBanner("+image+")' style='width:100px;'>";
+                        },"orderable": false
+                    },
+                    { "title": "Question Key", "data": "QuestionKey", "orderable": false },
+                    {
+                        "title": "Answer Image", "data": "",
+                        "render": function (data, type, row) {
+                            var image = '"' + row["AnswerImage"] + '"';
+                            return "<img src='" + row["AnswerImage"] + "' onclick='uploadBanner(" + image+")' style='width:100px;'>";
+                        }, "orderable": false
+                    },
+                    { "title": "Options", "data": "AnswerOptions", "orderable": false },
+                    { "title": "Answer", "data": "CorrectAnswer", "orderable": false },
+                    { "title": "Exam", "data": "ExamName", "orderable": false },
+                    { "title": "Subject", "data": "SubjectName", "orderable": false },
+                    { "title": "Chapter", "data": "ChapterName", "orderable": false },
+                    {
+                        "title": "Action", "data": "",
+                        "render": function (data, type, row) {
+                            var appendstring = "";
+                            appendstring += '<a  href="javascript:void(0);" onclick="ExamDelete(' + row["Id"] + ')" title="Delete"><img src="@Url.Content("~/Styles/img/delete.png")" alt="Delete" /></a> ';
+                            return appendstring;
+                        }, "orderable": false
+                    },
+                ],
+                "buttons": [],
+                "lengthMenu": [
+                    [20, 50, 100, 500],
+                    [20, 50, 100, 500]// change per page values here
+                ],
+                responsive: true,
+                "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
+            });
+        }
+
+        return {
+
+            init: function () {
+                if ($.fn.DataTable.isDataTable("#SubjectTable")) {
+                    $('#SubjectTable').dataTable().fnDestroy();
+                    $('#divSubjectTable').html('<table class="table table-striped" width="100%" id="SubjectTable"></table>');
+                }
+                userFlatsInitTable();
+            }
+        };
+    }();
+
+    function BuildSearchCriteria() {
+        try {
+            var param = {};
+            param["ExamKey"] = $("#ExamKey").val();
+            param["SubjectKey"] = $("#SubjectKey").val();
+            param["ChapterKey"] = $("#ChapterKey").val();
+            return addRequestVerificationToken(param);
+        } catch (e) { }
+    }
+
+    jQuery(document).ready(function () {
+        $("#SubjectKey").attr("disabled", true);
+        $("#ChapterKey").attr("disabled", true);
+        CustomerDatatable.init();
+    });
+
+    $("#ExamKey").change(function () {
+        var examKey = "";
+        if ($("#ExamKey").val() != "") {
+            examKey = $("#ExamKey").val();
+        }
+        $.ajax({
+         url: '@Url.Action(Actions.Search1, Controllers.ExamQuestion, new { Area = ""})',
+            data: ({ ExamKey: examKey }),
+             type: 'Post',
+             datatype: 'json',
+             success: onSuccess,
+           });
+        });
+
+
+    function onSuccess(responseText, statusText, xhr, $form) {
+        if (responseText[2].length > 0) {
+            if ($("#ExamKey").val() == "") {
+                $("#SubjectKey").attr("disabled", true);
+            } else {
+                $("#SubjectKey").attr("disabled", false);
+            }
+            $("#ChapterKey").attr("disabled", true);
+            var select = $("#SubjectKey");
+            $("#ChapterKey").val($("#ChapterKey option:first").val());
+            select.empty();
+            select.children().remove();
+            select.append($("<option>").val("").text("Select Subject"));
+            $(responseText[2]).each(function (index, item) {
+                select.append($("<option>").val(item.Value).text(item.Text));
+            });
+
+        }
+        else {
+            $("#SubjectKey").val($("#SubjectKey option:first").val());
+            $("#ChapterKey").val($("#ChapterKey option:first").val());
+            $("#SubjectKey").attr("disabled", true);
+            $("#ChapterKey").attr("disabled", true);
+        }
+    }
+
+    $("#SubjectKey").change(function () {
+        var subjectKey = "";
+        if ($("#SubjectKey").val() != "") {
+            subjectKey = $("#SubjectKey").val();
+      }
+      $.ajax({
+      url: '@Url.Action(Actions.Search2, Controllers.ExamQuestion, new { Area = "" })',
+          data: ({ SubjectKey: subjectKey }),
+          type: 'Post',
+          datatype: 'json',
+          success: onSuccessdis,
+        });
+    });
+
+    function onSuccessdis(responseText, statusText, xhr, $form) {
+        if (responseText[2].length > 0) {
+            if ($("#SubjectKey").val() == "") {
+                $("#ChapterKey").attr("disabled", true);
+            } else {
+                $("#ChapterKey").attr("disabled", false);
+            }
+            var select = $("#ChapterKey");
+            select.empty();
+            select.children().remove();
+            select.append($("<option>").val("").text("Select Chapter"));
+            $(responseText[2]).each(function (index, item) {
+                select.append($("<option>").val(item.Value).text(item.Text));
+            });
+        }
+        else {
+            $("#ChapterKey").val($("#ChapterKey option:first").val());
+            $("#ChapterKey").attr("disabled", true);
+        }
+    }
+
+    function ExamDelete(Id) {
+        $('.toast').remove();
+        ShowMessageToastr('@Enums.MessageType.info', 'Are you sure you want to delete this exam question?', true, 'ExamDeleteAjax("' + Id + '")', "");
+    }
+
+    function ExamDeleteAjax(Id) {
+        loaderon();
+         $.ajax({
+            url: '@Url.Action(Actions.Delete, Controllers.ExamQuestion)',
+             data: { Id: Id},
+            type: 'Post',
+            datatype: 'json',
+             success: function (result) {
+                 loaderoff();
+                 window.location.reload();
+            }
+        });
+    }
+</script>
+
+

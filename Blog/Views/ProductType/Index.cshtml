@@ -1,0 +1,143 @@
+﻿@using Blog.Common;
+@using Blog.Pages;
+@using Blog.Infrastructure;
+@using Blog.Entities.V1;
+@Html.AntiForgeryToken()
+
+@{
+    ViewBag.Title = "ProductType";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-content-wrapper">
+    <div class="page-content">
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <span class="active" href="#">Product Type</span>
+            </li>
+        </ul>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="portlet light bordered">
+                            <div class="portlet-title">
+                                <div class="caption font-dark">
+                                    <i class="font-dark"></i>
+                                    <span class="caption-subject bold uppercase">Product Type</span>
+                                </div>
+                                <a href="@Url.Action(Actions.Manage, Controllers.ProductType, new { area = ""})" class="btn btn-info" style="float:right;margin-left:5px;">Add</a>
+                            </div>
+                            <div class="portlet-body" id="divSubjectTable">
+                                <table class="table table-striped table-bordered table-hover" id="SubjectTable"></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    var CustomerDatatable = function () {
+
+        var userFlatsInitTable = function () {
+            var table = $('#SubjectTable');
+
+            var oTable = table.dataTable({
+                "stateSave": false,
+                "autoWidth": false,
+                "paging": true,
+                "searching": true,
+                "language": {
+                    "aria": {
+                        "sortAscending": ": activate to sort column ascending",
+                        "sortDescending": ": activate to sort column descending"
+                    },
+                    "emptyTable": "No data available in table",
+                    "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                    "infoEmpty": "No entries found",
+                    "infoFiltered": "(filtered1 from _MAX_ total entries)",
+                    "lengthMenu": "_MENU_ entries",
+                    "search": "Search:",
+                    "zeroRecords": "No matching records found"
+                },
+                "processing": true,
+                "serverSide": true,
+                "pageLength": 20,
+                "ajax": {
+                    async: true,
+                    url: '@Url.Action(Actions.BindProductType, Controllers.ProductType, new { area =""})',
+                    type: "post",
+                    data: BuildSearchCriteria()
+                },
+                "columns": [
+                    { "title": "Name", "data": "Name", "orderable": false },
+                    {
+                        "title": "Action", "data": "",
+                        "render": function (data, type, row) {
+                            var Id = "'" + btoa(row["Id"]) + "'";
+                            var appendstring = "";
+                            var url = "@Url.Action(Actions.Manage, Controllers.ProductType, new { Area = ""})";
+                            appendstring += '<a  href="' + url + "?Id=" + btoa(row["Id"]) + '" title="Edit"  > <img src="@Url.Content("~/Styles/img/edit.png")" alt="Edit" /></a>&nbsp; ';
+                            appendstring += '<a  href="javascript:void(0);" onclick="ProductTypeDelete(' + Id + ')" title="Delete"><img src="@Url.Content("~/Styles/img/delete.png")" alt="Delete" /></a> ';
+                            return appendstring;
+                        }, "orderable": false
+                    },
+                ],
+                "buttons": [],
+                "lengthMenu": [
+                    [20, 50, 100, 500],
+                    [20, 50, 100, 500]// change per page values here
+                ],
+                responsive: true,
+                "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
+            });
+        }
+
+        return {
+
+            init: function () {
+                if ($.fn.DataTable.isDataTable("#SubjectTable")) {
+                    $('#SubjectTable').dataTable().fnDestroy();
+                    $('#divSubjectTable').html('<table class="table table-striped" width="100%" id="SubjectTable"></table>');
+                }
+                userFlatsInitTable();
+            }
+        };
+    }();
+
+    function BuildSearchCriteria() {
+        try {
+            var param = {};
+            return addRequestVerificationToken(param);
+        } catch (e) { }
+    }
+
+    jQuery(document).ready(function () {
+        CustomerDatatable.init();
+    });
+
+    function ProductTypeDelete(Id) {
+        $('.toast').remove();
+        ShowMessageToastr('@Enums.MessageType.info', 'Are you sure you want to delete this Product Type ?', true, 'ProductTypeDeleteAjax("' + Id + '")', "");
+    }
+
+    function ProductTypeDeleteAjax(Id) {
+        loaderon();
+         $.ajax({
+            url: '@Url.Action(Actions.Delete, Controllers.ProductType)',
+             data: { Id: Id},
+            type: 'Post',
+            datatype: 'json',
+             success: function (result) {
+                 loaderoff();
+                 window.location.reload();
+            }
+        });
+    }
+
+</script>
+
+

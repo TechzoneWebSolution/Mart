@@ -1,0 +1,232 @@
+1) api/exam/Exams (POST)
+
+Request parameter 
+
+{
+  "Key": "12_SCIENCE"
+}
+
+Response Body 
+
+IF SUCESS
+
+{
+  "Code": 200,
+  "Message": "Data retrived successfully",
+  "Item": {
+    "Exams": [
+      {
+        "Id": "1",
+        "Name": "JEE",
+        "Color": "#FF2200",
+        "IsSubject": "1",
+        "CorrectAnswerMark": "1",
+        "WrongAnswerMark": "0.25",
+        "QuestionTime": "2",
+        "ExamFormats": "10,15,20,25",
+        "PracticeFormat": "40",
+	"ExamViewNTA": "1",
+        "Subjects": [
+          {
+            "SubjectKey": "12_SCIENCE_MATCHS",
+            "SubjectName": "Maths",
+            "Chapters": [
+              {
+                "ChapterKey": "12_SCIENCE_MATCHS_01",
+                "ChapterName": "Chapter 1"
+              },
+              {
+                "ChapterKey": "12_SCIENCE_MATCHS_02",
+                "ChapterName": "Chapter 2"
+              }
+            ]
+          },
+          {
+            "SubjectKey": "12_SCIENCE_BIOLOGY",
+            "SubjectName": "Biology",
+            "Chapters": [
+              {
+                "ChapterKey": "12_SCIENCE_BIOLOGY_01",
+                "ChapterName": "Chapter 1"
+              },
+              {
+                "ChapterKey": "12_SCIENCE_BIOLOGY_01",
+                "ChapterName": "Chapter 2"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "Id": "2",
+        "Name": "RTO",
+        "Color": "#AABBCC",
+        "IsSubject": "0",
+        "CorrectAnswerMark": "1",
+        "WrongAnswerMark": "0",
+        "QuestionTime": "1",
+        "ExamFormats": "10,15",
+        "PracticeFormat": "20",
+	"ExamViewNTA": "0",
+        "Subjects": null
+      }
+    ]
+  },
+  "IsValid": true,
+  "IsSuccessStatusCode": true
+}
+
+IF FALSE
+
+{
+  "Code": 400,
+  "Message": "Data not retrived",
+  "Item": null,
+  "IsValid": false,
+  "IsSuccessStatusCode": false
+}
+
+============================================================
+
+2) api/exam/Questions (POST)
+
+Request parameter 
+
+IF Subject then Received like below Parameters
+
+{
+  "Key": "12_SCIENCE",
+  "ExamId": "1",
+  "SubjectKey": "12_SCIENCE_MATCHS",
+  "ChapterKeys":[
+	12_SCIENCE_MATCHS_01,
+	12_SCIENCE_MATCHS_02
+  ],
+  "ExamFormat":"25"
+}
+
+IF No Subject then Received like below Parameters
+
+{
+  "Key": "12_SCIENCE",
+  "ExamId": "2",
+  "SubjectKey": "",
+  "ChapterKeys":"",
+  "ExamFormat":"15"
+}
+
+Response Body 
+
+IF SUCESS
+
+{
+  "Code": 200,
+  "Message": "Data retrived successfully",
+  "Item": {
+    "Questions": [
+      {
+        "QuestionImage": "http://service.sky3app.com/services/ipl2020/qaimage/001Q.png",
+        "AnswerImage": "http://service.sky3app.com/services/ipl2020/qaimage/001A.png",
+        "AnswerOptions": "(1),(2),(3)",
+        "CorrectAnswer": "2"
+      },
+      {
+        "QuestionImage": "http://service.sky3app.com/services/ipl2020/qaimage/002Q.png",
+        "AnswerImage": "http://service.sky3app.com/services/ipl2020/qaimage/002A.png",
+        "AnswerOptions": "(1),(2),(3),(4)",
+        "CorrectAnswer": "3"
+      },
+      {
+        "QuestionImage": "http://service.sky3app.com/services/ipl2020/qaimage/003Q.png",
+        "AnswerImage": "http://service.sky3app.com/services/ipl2020/qaimage/003A.png",
+        "AnswerOptions": "(1),(2),(3),(4)",
+        "CorrectAnswer": "3"
+      },
+      {
+        "QuestionImage": "http://service.sky3app.com/services/ipl2020/qaimage/004Q.png",
+        "AnswerImage": "http://service.sky3app.com/services/ipl2020/qaimage/004A.png",
+        "AnswerOptions": "1),2),3),4)",
+        "CorrectAnswer": "4"
+      },
+      {
+        "QuestionImage": "http://service.sky3app.com/services/ipl2020/qaimage/001Q.png",
+        "AnswerImage": "http://service.sky3app.com/services/ipl2020/qaimage/001A.png",
+        "AnswerOptions": "1,2,3,4",
+        "CorrectAnswer": "2"
+      },
+      {
+        "QuestionImage": "http://service.sky3app.com/services/ipl2020/qaimage/002Q.png",
+        "AnswerImage": "http://service.sky3app.com/services/ipl2020/qaimage/002A.png",
+        "AnswerOptions": "(A),(B),(C),(D)",
+        "CorrectAnswer": "3"
+      },
+      {
+        "QuestionImage": "http://service.sky3app.com/services/ipl2020/qaimage/003Q.png",
+        "AnswerImage": "http://service.sky3app.com/services/ipl2020/qaimage/003A.png",
+        "AnswerOptions": "(A),(B),(C),(D)",
+        "CorrectAnswer": "3"
+      },
+      {
+        "QuestionImage": "http://service.sky3app.com/services/ipl2020/qaimage/004Q.png",
+        "AnswerImage": "http://service.sky3app.com/services/ipl2020/qaimage/004A.png",
+        "AnswerOptions": "A),B),C),D)",
+        "CorrectAnswer": "4"
+      },
+      {
+        "QuestionImage": "http://service.sky3app.com/services/ipl2020/qaimage/001Q.png",
+        "AnswerImage": "http://service.sky3app.com/services/ipl2020/qaimage/001A.png",
+        "AnswerOptions": "A,B,C,D",
+        "CorrectAnswer": "2"
+      },
+      {
+        "QuestionImage": "http://service.sky3app.com/services/ipl2020/qaimage/002Q.png",
+        "AnswerImage": "http://service.sky3app.com/services/ipl2020/qaimage/002A.png",
+        "AnswerOptions": "(A),(B),(C),(D)",
+        "CorrectAnswer": "3"
+      },
+      {
+        "QuestionImage": "http://service.sky3app.com/services/ipl2020/qaimage/003Q.png",
+        "AnswerImage": "http://service.sky3app.com/services/ipl2020/qaimage/003A.png",
+        "AnswerOptions": "(A),(B),(C),(D)",
+        "CorrectAnswer": "3"
+      },
+      {
+        "QuestionImage": "http://service.sky3app.com/services/ipl2020/qaimage/004Q.png",
+        "AnswerImage": "http://service.sky3app.com/services/ipl2020/qaimage/004A.png",
+        "AnswerOptions": "A),B),C),D)",
+        "CorrectAnswer": "4"
+      },
+      {
+        "QuestionImage": "http://service.sky3app.com/services/ipl2020/qaimage/001Q.png",
+        "AnswerImage": "http://service.sky3app.com/services/ipl2020/qaimage/001A.png",
+        "AnswerOptions": "(1),(2),(3)",
+        "CorrectAnswer": "2"
+      },
+      {
+        "QuestionImage": "http://service.sky3app.com/services/ipl2020/qaimage/002Q.png",
+        "AnswerImage": "http://service.sky3app.com/services/ipl2020/qaimage/002A.png",
+        "AnswerOptions": "(1),(2),(3),(4)",
+        "CorrectAnswer": "3"
+      },
+      {
+        "QuestionImage": "http://service.sky3app.com/services/ipl2020/qaimage/003Q.png",
+        "AnswerImage": "http://service.sky3app.com/services/ipl2020/qaimage/003A.png",
+        "AnswerOptions": "(1),(2),(3),(4)",
+        "CorrectAnswer": "3"
+      }
+    ]
+  },
+  "IsValid": true,
+  "IsSuccessStatusCode": true
+}
+
+IF FALSE
+
+{
+  "Code": 400,
+  "Message": "Data not retrived",
+  "Item": null,
+  "IsValid": false,
+  "IsSuccessStatusCode": false
+}
+======================================================

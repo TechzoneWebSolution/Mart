@@ -1,0 +1,174 @@
+﻿@using Blog.Common;
+@using Blog.Pages;
+@using Blog.Infrastructure;
+@using Blog.Entities.V1;
+@Html.AntiForgeryToken()
+
+@{
+    ViewBag.Title = "Exam Subject";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-content-wrapper">
+    <!-- BEGIN CONTENT BODY -->
+    <div class="page-content">
+        <ul class="page-breadcrumb breadcrumb">
+            @*<li>
+                <span href="@Url.Action(Actions.Index, Controllers.Standard, new { area = "" })">@ViewBag.StandardName</span>
+            </li>*@
+            <li>
+                <span class="active" href="#">Exam Subject</span>
+            </li>
+        </ul>
+        <!-- END PAGE BREADCRUMB -->
+        <!-- BEGIN PAGE BASE CONTENT -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="portlet light bordered">
+                            <div class="portlet-title">
+                                <div class="caption font-dark">
+                                    <i class="font-dark"></i>
+                                    <span class="caption-subject bold uppercase">Exam Subject</span>
+                                </div>
+                                <div class="form-body row mt-2">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-md-2 col-sm-12" style=";margin-top:5px;">
+                                                @Html.DropDownList("ExamKey", (IEnumerable<SelectListItem>)ViewBag.Exam, "Select Exam", new { @class = "form-control select-cus" })
+                                            </div>
+                                            <div class="col-md-6 col-sm-12 " style="text-align:right;margin-top:5px;">
+                                                <button type="button" class="btn green si ri" onclick="CustomerDatatable.init();">Filter</button>
+                                                <button type="button" class="btn default si ri" onclick="clearfilter();" style="background-color:lightgray;">Clear</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="@Url.Action(Actions.Manage, Controllers.ExamSubject, new { area = ""})" class="btn btn-info" style="float:right;margin-left:5px;">Add</a>
+                            </div>
+                            <div class="portlet-body" id="divSubjectTable">
+                                <table class="table table-striped table-bordered table-hover" id="SubjectTable"></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- END EXAMPLE TABLE PORTLET-->
+            </div>
+        </div>
+        <!-- END PAGE BASE CONTENT -->
+    </div>
+    <!-- END CONTENT BODY -->
+</div>
+
+<script type="text/javascript">
+    var CustomerDatatable = function () {
+
+        var userFlatsInitTable = function () {
+            var table = $('#SubjectTable');
+
+        var oTable = table.dataTable({
+            "stateSave": false,
+            "autoWidth": false,
+            "paging": true,
+            "searching": true,
+            // Internationalisation. For more info refer to http://datatables.net/manual/i18n
+            "language": {
+                "aria": {
+                    "sortAscending": ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                },
+                "emptyTable": "No data available in table",
+                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                "infoEmpty": "No entries found",
+                "infoFiltered": "(filtered1 from _MAX_ total entries)",
+                "lengthMenu": "_MENU_ entries",
+                "search": "Search:",
+                "zeroRecords": "No matching records found"
+            },
+            "processing": true,
+            "serverSide": true,
+            "pageLength": 20,
+            "ajax": {
+                async: true,
+                url: '@Url.Action(Actions.BindExamSubject, Controllers.ExamSubject, new { area =""})',
+                type: "post",
+                data: BuildSearchCriteria()
+            },
+            "columns": [
+                { "title": "Exam Name", "data": "ExamName", "orderable": false },
+                { "title": "Exam Key", "data": "ExamKey", "orderable": false },
+                { "title": "Subject Name", "data": "SubjectName", "orderable": false },
+                { "title": "Subject Key", "data": "SubjectKey", "orderable": false },
+                {
+                    "title": "Action", "data": "",
+                    "render": function (data, type, row) {
+                        var ExamKey = "'" + row["ExamKey"]+ "'";
+                        var SubjectKey ="'"+ row["SubjectKey"]+ "'";
+                        var appendstring = "";
+                        var url = "@Url.Action(Actions.Manage, Controllers.ExamSubject, new { Area = ""})";
+                        appendstring += '<a  href="' + url + "?ExamKey=" + row["ExamKey"] + '&SubjectKey=' + row["SubjectKey"] + '" title="Edit"  > <img src="@Url.Content("~/Styles/img/edit.png")" alt="Edit" /></a>&nbsp; ';
+                        appendstring += '<a  href="javascript:void(0);" onclick="ExamSubjectDelete(' + ExamKey + ',' + SubjectKey+')" title="Delete"><img src="@Url.Content("~/Styles/img/delete.png")" alt="Delete" /></a> ';
+                        return appendstring;
+                    }, "orderable": false
+                },
+            ],
+            "buttons": [],
+            "lengthMenu": [
+                [20, 50, 100, 500],
+                [20, 50, 100, 500]// change per page values here
+            ],
+            responsive: true,
+            "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
+            });
+    }
+
+    return {
+
+        init: function () {
+            if ($.fn.DataTable.isDataTable("#SubjectTable")) {
+                $('#SubjectTable').dataTable().fnDestroy();
+                $('#divSubjectTable').html('<table class="table table-striped" width="100%" id="SubjectTable"></table>');
+            }
+            userFlatsInitTable();
+        }
+
+    };
+
+    }();
+
+    function BuildSearchCriteria() {
+        try {
+            var param = {};
+            param["ExamKey"] = $("#ExamKey").val();
+            return addRequestVerificationToken(param);
+        } catch (e) { }
+    }
+
+    jQuery(document).ready(function () {
+        CustomerDatatable.init();
+       
+    });
+
+    function ExamSubjectDelete(ExamKey,SubjectKey) {
+        $('.toast').remove();
+        ShowMessageToastr('@Enums.MessageType.info', 'Are you sure you want to delete this subject ?', true, 'ExamSubjectDeleteAjax("' + ExamKey + '","' + SubjectKey + '")', "");
+    }
+
+    function ExamSubjectDeleteAjax(ExamKey, SubjectKey) {
+        loaderon();
+         $.ajax({
+            url: '@Url.Action(Actions.Delete, Controllers.ExamSubject)',
+             data: { ExamKey: ExamKey, SubjectKey: SubjectKey},
+            type: 'Post',
+            datatype: 'json',
+             success: function (result) {
+                 loaderoff();
+                 window.location.reload();
+            }
+        });
+    }
+
+</script>
+
+

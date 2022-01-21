@@ -1,0 +1,59 @@
+﻿@using Blog.Common;
+@using Blog.Pages;
+
+<ul class="page-sidebar-menu  page-header-fixed " data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200" style="padding-top: 0px">
+    @*<li class="sidebar-toggler-wrapper hide">
+        <div class="sidebar-toggler">
+            <span></span>
+        </div>
+    </li>
+    <li class="nav-itemmenu Dashboard">
+        <a href="@Url.Action(Actions.Index, Controllers.Dashboard, new { area = "" })" class="nav-link" id="lnkMenuDashboard">
+            <i class="icon-home"></i>
+            <span class="title">Dashboard</span>
+        </a>
+    </li>
+    <li class="nav-itemmenu Customers">
+        <a href="@Url.Action(Actions.Index, Controllers.Customers, new { area = "" })" class="nav-link" id="lnkMenuCustomers">
+            <i class="fa fa-users"></i>
+            <span class="title">Customers</span>
+        </a>
+    </li>
+    <li class="nav-itemmenu SubScription">
+        <a href="@Url.Action(Actions.Index, Controllers.SubScription, new { area = "" })" class="nav-link" id="lnkMenuSubScription">
+            <i class="fa fa-plus"></i>
+            <span class="title">SubScription</span>
+        </a>
+    </li>
+    <li class="nav-itemmenu SubScription">
+        <a href="@Url.Action(Actions.Index, Controllers.Standard, new { area = "" })" class="nav-link" id="lnkMenuStandard">
+            <i class="fa fa-graduation-cap"></i>
+            <span class="title">Standard</span>
+        </a>
+    </li>
+    <li class="nav-itemmenu Logout">
+        <a href="@Url.Action("Logout", Controllers.Account, new { area = "" })" class="nav-link" id="Logoot">
+            <i class="icon-key"></i>
+            <span class="title">Log Out</span>
+        </a>
+    </li>*@
+    @*<li class="nav-item NotificationTypes">
+            <a href="@Url.Action(Actions.Index, Controllers.NotificationTypes, new { area = "" })" class="nav-link" id="lnkMenuNotificationTypes">
+                <i class="icon-list"></i>
+                <span class="title">Notification Types</span>
+            </a>
+        </li>*@
+
+</ul>
+
+<script type="text/javascript">
+    if ('@ProjectSession.IsOrganizationCount' == 'True') {
+        $(".nav-item").hide();
+    }
+    else {
+        $(".nav-item").show();
+    }
+
+
+</script>
+

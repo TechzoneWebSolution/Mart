@@ -1,0 +1,78 @@
+GSTR 1 Report download  (Manufacture)
+1)
+GSTIN # 24AADCJ4369F1ZM
+Name # JAGDISH FARSHAN PRIVATE LIMITED
+Invoice No: INV/2020-21/GAIC-MFG/786
+Invoice Date : Jul 23 2020 - change in invoice (DD/MM/YYYY) - take a payment transaction date instead of order date.
+Place of Supply : Gujarat (based on the first 2 digits of GSTIN)
+Invoice Type: Regular
+GST %: 18%
+Taxable Amount : 6.49 (U Colummn - GAICTotalCharges)
+GAICGSTDeductTCS from excel / 2 (CGST): Rs 0.59 (9.00%) (Y,AA)
+GAICGSTDeductTCS from excel / 2 (SGST) : Rs. 0.59 (9.00%) 
+if not gujarat then IGST will be GAICGSTDeductTCS from excel
+B2B : Yes if manufacture does not have GST no then
+
+2) 
+GST TCS Report (Manufacture)
+GSTIN # 24AADCJ4369F1ZM
+Name # JAGDISH FARSHAN PRIVATE LIMITED
+Gross Value (Total Transfer Price) : 572 (ProductPricewithouttaxes)
+GAICGSTDeductTCS from excel / 2 (CGST): Rs 0.59 (9.00%) (AC,AD)
+GAICGSTDeductTCS from excel / 2 (SGST) : Rs. 0.59 (9.00%) 
+if not gujarat then IGST will be GAICGSTDeductTCS from excel
+
+Change every where
+CGST (0.5), SGST(0.5) and IGST (1.0)
+
+3)
+Income tax TDS Report 194(O)
+PAN # AADCJ4369F
+Name # JAGDISH FARSHAN PRIVATE LIMITED
+Gross Value (Total Transfer Price) : 572 (ProductPricewithouttaxes)
+TDS (%) : 1
+TDS (Rs) : 5.30
+Invoice Date : Jul 23 2020 - change in invoice (DD/MM/YYYY) - take a payment transaction date instead of order date.
+generate this report only available for the payment due in after 1st octomber 2020
+
+---------------------------
+Add one colum in payment excel sheet. (Aggregator)
+RegisteredUnderGST : yes / no
+
+4) 
+GST TDS Report (Aggregator & SIP) All aggregator is having gst number? yes then generate as per below invoice
+GSTIN # 24AADCJ4369F1ZM
+Name # JAGDISH FARSHAN PRIVATE LIMITED
+Service Charges (Aggregator) : 2.2(ProductPricewithouttaxes)
+AggregatorTDS from excel / 2 (CGST): Rs 0.59 (9.00%)
+AggregatorTDS from excel / 2 (SGST) : Rs. 0.59 (9.00%) 
+if not gujarat then IGST will be AggregatorTDS from excel
+
+5)
+GST TDS Report (Aggregator & SIP) if aggregator does not have gst number then all gst should be 0 and service charge will be paid only.
+GSTIN # 24AADCJ4369F1ZM
+Name # JAGDISH FARSHAN PRIVATE LIMITED
+Service Charges (Aggregator) : 2.2(ProductPricewithouttaxes)
+AggregatorTDS from excel / 2 (CGST): 0 (0%)
+AggregatorTDS from excel / 2 (SGST) : 0 (0%)
+if not gujarat then IGST will be AggregatorTDS from excel
+
+-----------------------------------------
+Add new column in the report and database.
+
+6)
+Income Tax TDS Report (Aggregator & SIP) 194(H) 
+PAN # AADCJ4369F
+Name # JAGDISH FARSHAN PRIVATE LIMITED
+Service Charges (Aggregator) : 2.2(ProductPricewithouttaxes)
+AggregatorI.TDS : Rs 0.1 (5.00%)
+-----------------------------------------
+
+http://localhost:7533/PaymentReport/SIPLGSTTCS
+
+http://localhost:7533/PaymentReport/AggregatorGSTTCS
+
+91068
+
+
+
