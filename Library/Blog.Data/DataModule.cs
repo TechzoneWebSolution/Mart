@@ -25,18 +25,8 @@ namespace Blog.Data
         protected override void Load(ContainerBuilder builder)
         {            
             builder.RegisterType<V1.CustomerDao>().As<AbstractCustomerDao>().InstancePerDependency();
-            builder.RegisterType<V1.SubScriptionDao>().As<AbstractSubScriptionDao>().InstancePerDependency();
             builder.RegisterType<V1.UserDao>().As<AbstractUserDao>().InstancePerDependency();
-            builder.RegisterType<V1.StandardDao>().As<AbstractStandardDao>().InstancePerDependency();
-            builder.RegisterType<V1.SubjectDao>().As<AbstractSubjectDao>().InstancePerDependency();
             builder.RegisterType<V1.OrderDetailsDao>().As<AbstractOrderDetailsDao>().InstancePerDependency();
-            builder.RegisterType<V1.ExamChapterDao>().As<AbstractExamChapterDao>().InstancePerDependency();
-            builder.RegisterType<V1.ExamSubjectDao>().As<AbstractExamSubjectDao>().InstancePerDependency();
-            builder.RegisterType<V1.ExamDao>().As<AbstractExamDao>().InstancePerDependency();
-            builder.RegisterType<V1.ExamVSStandardDao>().As<AbstractExamVSStandardDao>().InstancePerDependency();
-            builder.RegisterType<V1.ExamQuestionDao>().As<AbstractExamQuestionDao>().InstancePerDependency();
-            builder.RegisterType<V1.ExamStandardDao>().As<AbstractExamStandardDao>().InstancePerDependency();
-            builder.RegisterType<V1.StandardDao>().As<AbstractStandardDao>().InstancePerDependency();
             builder.RegisterType<V1.StateDao>().As<AbstractStateDao>().InstancePerDependency();
             builder.RegisterType<V1.DistrictDao>().As<AbstractDistrictDao>().InstancePerDependency();
             builder.RegisterType<V1.ProductTypeDao>().As<AbstractProductTypeDao>().InstancePerDependency();

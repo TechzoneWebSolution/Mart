@@ -51,10 +51,10 @@ namespace Blog.Services.V1
         //    return this.abstractUsersDao.GetMembers(pageParam, search);
         //}
 
-        //public override SuccessResult<AbstractUsers> Select(int id)
-        //{
-        //    return this.abstractUsersDao.Select(id);
-        //}
+        public override SuccessResult<AbstractUser> UserById(int id)
+        {
+            return this.abstractUsersDao.UserById(id);
+        }
 
         public override SuccessResult<AbstractUser> InsertUpdateUsers(AbstractUser abstractusers)
         {

@@ -17,17 +17,12 @@ namespace Blog.Pages
         public const string Delete = "Delete";
         #endregion
 
-        #region Customers
-        public const string BindCustomers = "BindCustomers";
-        public const string CustomerEdit = "CustomerEdit";
-        public const string SendNotification = "SendNotification";
-        public const string SendNotificationForAllCustomer = "SendNotificationForAllCustomer";
+        #region User
+        public const string Profile = "Profile";
+        public const string BindUser = "BindUser";
+        public const string UserEdit = "UserEdit";
         #endregion
 
-        #region SubScription
-        public const string BindSubScription = "BindSubScription";
-        public const string SubScriptionAddEdit = "SubScriptionAddEdit";
-        #endregion
 
         #region Account
         public const string ResetPSW = "ResetPSW";
@@ -37,53 +32,11 @@ namespace Blog.Pages
         public const string Logout = "Logout";
         public const string PrivacyPolicy = "PrivacyPolicy";
         public const string Register = "Register";
-        #endregion
-
-        #region Standard
-        public const string BindStandard = "BindStandard";
-        public const string StandardAddEdit = "StandardAddEdit";
-        public const string Banner_json = "Banner_json";
-        public const string HomeScreen_json = "HomeScreen_json";
-        public const string StandardOtherAppDataJsonUpdate = "StandardOtherAppDataJsonUpdate";
-        public const string StandardCompetativeExamsJsonUpdate = "StandardCompetativeExamsJsonUpdate";
-        public const string StandardOtherPDFMeterialUpdate = "StandardOtherPDFMeterialUpdate";
-        #endregion
-
-        #region Subject
-        public const string BindSubject = "BindSubject";
-        public const string SubjectAddEdit = "SubjectAddEdit";
+        public const string Search1 = "Search1";
         #endregion
 
         #region Order
         public const string BindOrder = "BindOrder";
-        #endregion
-
-        #region ExamChapter
-        public const string BindExamChapter = "BindExamChapter";
-        public const string ExamChapterAddEdit = "ExamChapterAddEdit";
-        #endregion
-        #region ExamSubject
-        public const string BindExamSubject = "BindExamSubject";
-        public const string ExamSubjectAddEdit = "ExamSubjectAddEdit";
-        #endregion
-        #region Exam
-        public const string BindExam = "BindExam";
-        public const string ExamAddEdit = "ExamAddEdit";
-        #endregion
-        #region ExamVSStandard
-        public const string BindExamVSStandard = "BindExamVSStandard";
-        public const string ExamVSStandardAddEdit = "ExamVSStandardAddEdit";
-        #endregion
-
-        #region ExamStandard
-        public const string BindExamStandard = "BindExamStandard";
-        public const string ExamStandardAddEdit = "ExamStandardAddEdit";
-        #endregion
-
-        #region ExamQuestion
-        public const string BindExamQuestion = "BindExamQuestion";
-        public const string Search1 = "Search1";
-        public const string Search2 = "Search2";
         #endregion
 
         #region State

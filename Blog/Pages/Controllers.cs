@@ -9,7 +9,7 @@ namespace Blog.Pages
     {
         public const string Account = "Account";
         public const string Dashboard = "Dashboard";
-        public const string Users = "Users";
+        public const string User = "User";
         public const string Customers = "Customers";
         public const string SubScription = "SubScription";
         public const string Standard = "Standard";

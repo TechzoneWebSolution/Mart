@@ -21,7 +21,7 @@ namespace Blog.Data.Contract
 
         //public abstract PagedList<AbstractUsers> GetMembers(PageParam pageParam, string search);
 
-        //public abstract SuccessResult<AbstractUsers> Select(int id);
+        public abstract SuccessResult<AbstractUser> UserById(int id);
 
         public abstract SuccessResult<AbstractUser> InsertUpdateUsers(AbstractUser abstractuser);
 

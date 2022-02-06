@@ -119,21 +119,21 @@ namespace Blog.Data.V1
         //    return classes;
         //}
 
-        //public override SuccessResult<AbstractUsers> Select(int id)
-        //{
-        //    SuccessResult<AbstractUsers> users = null;
-        //    var param = new DynamicParameters();
+        public override SuccessResult<AbstractUser> UserById(int id)
+        {
+            SuccessResult<AbstractUser> users = null;
+            var param = new DynamicParameters();
 
-        //    param.Add("@Id", id, dbType: DbType.Int32, direction: ParameterDirection.Input);
+            param.Add("@Id", id, dbType: DbType.Int32, direction: ParameterDirection.Input);
 
-        //    using (SqlConnection con = new SqlConnection(Configurations.ConnectionString))
-        //    {
-        //        var task = con.QueryMultiple(SQLConfig.UsersById, param, commandType: CommandType.StoredProcedure);
-        //        users = task.Read<SuccessResult<AbstractUsers>>().SingleOrDefault();
-        //        users.Item = task.Read<Users>().SingleOrDefault();
-        //    }
-        //    return users;
-        //}
+            using (SqlConnection con = new SqlConnection(Configurations.ConnectionString))
+            {
+                var task = con.QueryMultiple(SQLConfig.UserById, param, commandType: CommandType.StoredProcedure);
+                users = task.Read<SuccessResult<AbstractUser>>().SingleOrDefault();
+                users.Item = task.Read<User>().SingleOrDefault();
+            }
+            return users;
+        }
 
         public override SuccessResult<AbstractUser> InsertUpdateUsers(AbstractUser abstractusers)
         {
@@ -147,6 +147,8 @@ namespace Blog.Data.V1
             param.Add("@Mobile", abstractusers.Mobile, DbType.String, direction: ParameterDirection.Input);
             param.Add("@Password", abstractusers.Password, DbType.String, direction: ParameterDirection.Input);
             param.Add("@Address", abstractusers.Address, DbType.String, direction: ParameterDirection.Input);
+            param.Add("@StateId", abstractusers.StateId, DbType.Int32, direction: ParameterDirection.Input);
+            param.Add("@DistrictId", abstractusers.DistrictId, DbType.Int32, direction: ParameterDirection.Input);
             param.Add("@UserType", abstractusers.UserType, DbType.Int32, direction: ParameterDirection.Input);
             param.Add("@CreatedBy", abstractusers.CreatedBy, dbType: DbType.Int32, direction: ParameterDirection.Input);
             param.Add("@ModifiedBy", abstractusers.ModifiedBy, dbType: DbType.Int32, direction: ParameterDirection.Input);

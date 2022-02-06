@@ -1,0 +1,499 @@
+﻿@using Blog.Common;
+@using Blog.Pages;
+@using Blog.Infrastructure;
+@using Blog.Entities.V1;
+@Html.AntiForgeryToken()
+
+@{
+    ViewBag.Title = "User";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="page-content-wrapper">
+    <!-- BEGIN CONTENT BODY -->
+    <div class="page-content">
+        <ul class="page-breadcrumb breadcrumb">
+            <li>
+                <span class="active" href="#">User</span>
+            </li>
+        </ul>
+        <!-- END PAGE BREADCRUMB -->
+        <!-- BEGIN PAGE BASE CONTENT -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="portlet light bordered">
+                            <div class="portlet-title">
+                                <div class="caption font-dark">
+                                    <i class="font-dark"></i>
+                                    <span class="caption-subject bold uppercase">User</span>
+                                </div>
+                            </div>
+                            <div class="form-body row mt-2">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="input-group date">
+                                                @Html.TextBox("StartDate", "", new { @class = "form-control", placeholder = "Start Date", @id = "StartDate", @autocomplete = "off" })
+                                                <span class="input-group-btn" id="input-group-startdate">
+                                                    <button class="btn default" type="button" id="startdate" style="background-color:lightgray;">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="input-group date">
+                                                @Html.TextBox("EndDate", "", new { @class = "form-control", placeholder = "End Date", @id = "EndDate", @autocomplete = "off" })
+                                                <span class="input-group-btn" id="input-group-startdate">
+                                                    <button class="btn default" type="button" id="startdate" style="background-color:lightgray;">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 col-sm-12" style=";margin-top:5px;">
+                                            @Html.DropDownList("StandardId", (IEnumerable<SelectListItem>)ViewBag.Standard, "Select Standard", new { @class = "form-control select-cus" })
+                                        </div>
+                                        <div class="col-md-2 col-sm-12" style=";margin-top:5px;">
+                                            @Html.DropDownList("IsBlock", (IEnumerable<SelectListItem>)ViewBag.Block, "Select Block", new { @class = "form-control select-cus" })
+                                        </div>
+                                        <div class="col-md-2 col-sm-12" style=";margin-top:5px;">
+                                            @Html.DropDownList("IsBlog", (IEnumerable<SelectListItem>)ViewBag.Blog, "Select Blog", new { @class = "form-control select-cus" })
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="input-group date">
+                                                @Html.TextBox("ExpiryStartDate", "", new { @class = "form-control", placeholder = "Expiry Start Date", @id = "ExpiryStartDate", @autocomplete = "off" })
+                                                <span class="input-group-btn" id="input-group-startdate">
+                                                    <button class="btn default" type="button" id="startdate" style="background-color:lightgray;">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="input-group date">
+                                                @Html.TextBox("ExpiryEndDate", "", new { @class = "form-control", placeholder = "Expiry End Date", @id = "ExpiryEndDate", @autocomplete = "off" })
+                                                <span class="input-group-btn" id="input-group-startdate">
+                                                    <button class="btn default" type="button" id="startdate" style="background-color:lightgray;">
+                                                        <i class="fa fa-calendar"></i>
+                                                    </button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 col-sm-12" style=";margin-top:5px;">
+                                            @Html.DropDownList("GroupName", (IEnumerable<SelectListItem>)ViewBag.GroupName, "Select Group Name", new { @class = "form-control select-cus" })
+                                        </div>
+                                        <div class="col-md-2 col-sm-12" style=";margin-top:5px;">
+                                            @Html.DropDownList("Type", (IEnumerable<SelectListItem>)ViewBag.Type, "Select Type", new { @class = "form-control select-cus" })
+                                        </div>
+                                        <div class="col-md-2 col-sm-12" style=";margin-top:5px;">
+                                            <input type="text" class="form-control" id="City" placeholder="City" />
+                                        </div>
+                                        <div class="col-md-2 col-sm-12" style=";margin-top:5px;">
+                                            <input type="text" class="form-control" id="SchoolName" placeholder="School Name" />
+                                        </div>
+                                        <div class="col-md-6 col-sm-12 " style="text-align:right;margin-top:5px;">
+                                            <button type="button" class="btn green si ri" onclick="CustomerDatatable.init();">Filter</button>
+                                            <button type="button" class="btn default si ri" onclick="clearfilter();" style="background-color:lightgray;">Clear</button>
+                                            <button type="button" class="btn green si ri msgmodelbtn" onclick="PushNotificationSendPopup();"> Send Notification</button>
+                                            <button type="button" class="btn green" onclick="PushNotificationSendPopup2();"> All Customer Send Notification</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" id="checklog" />
+
+
+                        <div class="portlet-body" id="divUserTable">
+                            <table class="table table-striped table-bordered table-hover" id="UserTable"></table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- END EXAMPLE TABLE PORTLET-->
+        </div>
+    </div>
+    <!-- END PAGE BASE CONTENT -->
+</div>
+
+
+<div class="modal fade in" id="NotificationModal" tabindex="-1" role="basic" aria-hidden="true" data-backdrop="static" style=" background-color: rgba(97, 95, 95, 0.65); opacity: 1;">
+    <div class="modal-dialog ">
+        <div class="modal-content" style="top:116px;">
+            <div class="modal-header">
+                <h3 class="modal-title">Send Push Notification</h3>
+                <button type="button" class="close cancl" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="col-md-12">
+                        <input type="text" class="form-control" id="Title" placeholder="Enter Title">
+                    </div>
+                    <div class="col-md-12">
+                        <textarea class="form-control rounded-0 form-control-solid placeholder-no-fix  notifications clos" id="" rows="3" placeholder="Enter Message"></textarea>
+                    </div>
+                    <div class="modal-footer" id="approve" style="border-top: none;">
+                        <button type="button" onclick="PushNotification()" id="save" title="Save" class="btn btn-primary">Submit</button>
+                        <button type="button" title="Cancel" class="btn btn-default backcol cancl" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade in" id="NotificationModal2" tabindex="-1" role="basic" aria-hidden="true" data-backdrop="static" style=" background-color: rgba(97, 95, 95, 0.65); opacity: 1;">
+    <div class="modal-dialog ">
+        <div class="modal-content" style="top:116px;">
+            <div class="modal-header">
+                <h3 class="modal-title">Send Push Notification</h3>
+                <button type="button" class="close cancl" data-dismiss="modal">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal">
+                    <div class="col-md-12">
+                        <input type="text" class="form-control" id="Title2" placeholder="Enter Title">
+                    </div>
+                    <div class="col-md-12">
+                        <textarea class="form-control rounded-0 form-control-solid placeholder-no-fix  notifications2 clos" id="" rows="3" placeholder="Enter Message"></textarea>
+                    </div>
+                    <div class="modal-footer" id="approve" style="border-top: none;">
+                        <button type="button" onclick="PushNotificationAllCustomer()" id="save" title="Save" class="btn btn-primary">Submit</button>
+                        <button type="button" title="Cancel" class="btn btn-default backcol cancl" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<script type="text/javascript">
+
+    jQuery(document).ready(function () {
+        //$('.msgmodelbtn').hide();
+        //CustomerDatatable.init();
+        //$('#StartDate').datetimepicker({
+        //    useCurrent: false, //Important! See issue #1075
+        //    format: 'DD/MM/YYYY'
+        //});
+        //$('#EndDate').datetimepicker({
+        //    useCurrent: false, //Important! See issue #1075
+        //    format: 'DD/MM/YYYY'
+        //});
+        //$("#StartDate").on("dp.change", function (e) {
+        //    $('#EndDate').data("DateTimePicker").minDate(e.date);
+        //});
+        //$("#EndDate").on("dp.change", function (e) {
+        //    $('#StartDate').data("DateTimePicker").maxDate(e.date);
+        //});
+        //$('#StartDate,#EndDate,#ExpiryStartDate,#ExpiryEndDate').attr('disabled', true);
+        //setTimeout(function () {
+        //    $('#StartDate,#EndDate,#ExpiryStartDate,#ExpiryEndDate').attr('disabled', false);
+
+        //}, 2000);
+        //$('#ExpiryStartDate').datetimepicker({
+        //    useCurrent: false, //Important! See issue #1075
+        //    format: 'DD/MM/YYYY'
+        //});
+        //$('#ExpiryEndDate').datetimepicker({
+        //    useCurrent: false, //Important! See issue #1075
+        //    format: 'DD/MM/YYYY'
+        //});
+        //$("#ExpiryStartDate").on("dp.change", function (e) {
+        //    $('#ExpiryEndDate').data("DateTimePicker").minDate(e.date);
+        //});
+        //$("#ExpiryEndDate").on("dp.change", function (e) {
+        //    $('#ExpiryStartDate').data("DateTimePicker").maxDate(e.date);
+        //});
+        //$('#select_all').on('change', function () {
+        //        $('.child').prop('checked', this.checked);
+        //    });
+    });
+
+
+    @*var CustomerDatatable = function () {
+
+        var userFlatsInitTable = function () {
+            var table = $('#UserTable');
+
+        var oTable = table.dataTable({
+            "stateSave": false,
+            "autoWidth": false,
+            "paging": true,
+            "searching": true,
+            // Internationalisation. For more info refer to http://datatables.net/manual/i18n
+            "language": {
+                "aria": {
+                    "sortAscending": ": activate to sort column ascending",
+                    "sortDescending": ": activate to sort column descending"
+                },
+                "emptyTable": "No data available in table",
+                "info": "Showing _START_ to _END_ of _TOTAL_ entries",
+                "infoEmpty": "No entries found",
+                "infoFiltered": "(filtered1 from _MAX_ total entries)",
+                "lengthMenu": "_MENU_ entries",
+                "search": "Search:",
+                "zeroRecords": "No matching records found"
+            },
+            "processing": true,
+            "serverSide": true,
+            "pageLength": 100,
+            "ajax": {
+                async: true,
+                url: '@Url.Action(Actions.BindUser, Controllers.User, new { area =""})',
+                type: "post",
+                data: BuildSearchCriteria()
+            },
+            "columns": [
+                {
+                    "title": "Select", "data": "",
+                    "render": function (data, type, row) {
+                        return '<input type="checkbox" value="' + row["Id"] + '" onClick="onSelectProspect()" class="md-check child" >';
+                    }
+                    , "orderable": false
+                },
+                { "title": "Index", "data": "SequenceId", "orderable": false },
+                {
+                    "title": "Name", "data": "",
+                    "render": function (data, type, row) {
+                        var appendstring = "";
+                        appendstring += "<span>" + isEmpty(row["FirstName"]) + " " + isEmpty(row["LastName"]) + "</span>";
+                        return appendstring;
+                    },"orderable": false
+                },
+                { "title": "Mobile", "data": "Mobile", "orderable": false },
+                { "title": "Standard", "data": "Standard", "orderable": false },
+                { "title": "Type", "data": "CustomerType", "orderable": false },
+                { "title": "Group", "data": "GroupName", "orderable": false },
+                { "title": "Device Id", "data": "DeviceId", "orderable": false },
+                { "title": "Blog", "data": "IsBlog", "orderable": false },
+                { "title": "Create Date", "data": "CreateDate", "orderable": false },
+                { "title": "Expiry Date", "data": "ExpiryDate", "orderable": false },
+                { "title": "City", "data": "City", "orderable": false },
+                { "title": "School Name", "data": "SchoolName", "orderable": false },
+                { "title": "Email", "data": "Email", "orderable": false },
+                {
+                    "title": "Action", "data": "",
+                    "render": function (data, type, row) {
+                        var appendstring = "";
+                        var Id = btoa(row["Id"]);
+                        var url = "@Url.Action(Actions.Manage, Controllers.User, new { Area = ""})";
+                        appendstring += '<button class="btn btn-warning" onclick="ViewOrder(' + row["Id"] + ')">View Order</button>&nbsp;';
+                        if (row["IsBlock"] == 1) {
+                            appendstring += '<button class="btn btn-info" onclick="ChangeSTatus(' + row["Id"] + ')">Unblock</button>&nbsp;';
+                        }
+                        else {
+                            appendstring += '<button class="btn btn-danger" onclick="ChangeSTatus(' + row["Id"] + ')">Block</button>&nbsp;';
+                        }
+                        appendstring += '<a  href="' + url + "?id=" + Id + '" title="Edit"  > <img src="@Url.Content("~/Styles/img/edit.png")" alt="Edit" /></a>&nbsp; ';
+                        appendstring += '<a  href="javascript:void(0);" onclick="CustomerDelete(' + row["Id"] + ')" title="Delete"><img src="@Url.Content("~/Styles/img/delete.png")" alt="Delete" /></a> ';
+
+                        return appendstring;
+                    }, "orderable": false
+                },
+            ],
+            "buttons": ['excel'],
+            "lengthMenu": [
+                [100,500,1000,5000],
+                [100,500,1000,5000]// change per page values here
+            ],
+            "pageLength": 100,
+            responsive: true,
+            "dom": "<'row' <'col-md-12'B>><'row'<'col-md-6 col-sm-12'l><'col-md-6 col-sm-12'f>r><'table-scrollable't><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
+            });
+    }
+
+    return {
+
+        init: function () {
+            if ($.fn.DataTable.isDataTable("#UserTable")) {
+                $('#UserTable').dataTable().fnDestroy();
+                $('#divUserTable').html('<table class="table table-striped" width="100%" id="UserTable"></table>');
+            }
+            userFlatsInitTable();
+        }
+
+    };
+
+    }();
+
+    function BuildSearchCriteria() {
+        try {
+            var param = {};
+            param["StartDate"] = $("#StartDate").val();
+            param["EndDate"] = $("#EndDate").val();
+            param["StandardId"] = $("#StandardId").val();
+            param["IsBlock"] = $("#IsBlock").val();
+            param["IsBlog"] = $("#IsBlog").val();
+            param["GroupName"] = $("#GroupName").val();
+            param["Type"] = $("#Type").val();
+            param["City"] = $("#City").val();
+            param["ExpiryStartDate"] = $("#ExpiryStartDate").val();
+            param["ExpiryEndDate"] = $("#ExpiryEndDate").val();
+            param["SchoolName"] = $("#SchoolName").val();
+            return addRequestVerificationToken(param);
+        } catch (e) { }
+    }
+
+
+    function ChangeSTatus(Id) {
+        $('.toast').remove();
+        ShowMessageToastr('@Enums.MessageType.info', 'Are you sure you want to status change this customer ?', true, 'ChangeSTatusAjax("' + Id + '")', "");
+    }
+
+    function clearfilter() {
+        window.location.reload();
+    }
+
+     function ViewOrder(Id) {
+        var url = "@Url.Action(Actions.Index, Controllers.Order, new { area = "" })"
+         window.location.href = url + "?CustomerId=" + btoa(Id);
+    }
+
+    function ChangeSTatusAjax(id) {
+        loaderon();
+         $.ajax({
+            url: '@Url.Action(Actions.ChangeStatus, Controllers.User)',
+             data: { Id: id},
+            type: 'Post',
+            datatype: 'json',
+             success: function (result) {
+                 loaderoff();
+                 window.location.reload();
+            }
+        });
+    }
+
+    function CustomerDelete(Id) {
+        $('.toast').remove();
+        ShowMessageToastr('@Enums.MessageType.info', 'Are you sure you want to delete this customer ?', true, 'CustomerDeleteAjax("' + Id + '")', "");
+    }
+
+    function CustomerDeleteAjax(id) {
+        loaderon();
+         $.ajax({
+            url: '@Url.Action(Actions.Delete, Controllers.User)',
+             data: { Id: id},
+            type: 'Post',
+            datatype: 'json',
+             success: function (result) {
+                 loaderoff();
+                 window.location.reload();
+            }
+        });
+    }
+
+    function onSelectProspect() {
+        if ($('.md-check:checked').length > 0) {
+            $('.msgmodelbtn').show();
+        }
+        if ($('.md-check:checked').length == 0) {
+            $('.msgmodelbtn').hide();
+        }
+        //if ($('.md-check:checked').length != $('.md-check').length) {
+        //    $('#select_all').prop('checked', $('.child:checked').length === $('.child').length);
+        //} if ($('.md-check:checked').length == $('.md-check').length) {
+        //    $('#select_all').prop('checked', true);
+        //}
+
+    }
+
+
+    function PushNotificationSendPopup() {
+        $(".notifications").val('');
+        $("#Title").val('');
+        $("#NotificationModal").modal("show");
+    }
+
+    function PushNotificationSendPopup2() {
+        $(".notifications2").val('');
+        $("#Title2").val('');
+        $("#NotificationModal2").modal("show");
+    }
+
+    function PushNotification() {
+        var abc = "";
+        $('.md-check:checked').each(function () {
+            if ($(".md-check").is(":checked")) {
+                abc += $(this).closest('tr').find('.child').val() + ",";
+            }
+            $("#checklog").val(abc);
+        });
+        var Ids = $("#checklog").val();
+        var Message = $(".notifications").val();
+        var Title = $("#Title").val();
+        if (Ids != "") {
+            $.ajax({
+                url: '@Url.Action(Actions.SendNotification, Controllers.User, new { area = "" })',
+                data: { Ids: Ids, Message: Message, Title: Title },
+                type: 'POST',
+                datatype: 'json',
+                success: function (data) {
+                    debugger;
+                    if (data == 1) {
+                        window.location.reload();
+                    }
+                    else {
+                        console.log(123);
+                    }
+                    
+                    
+                }
+            });
+        }
+    }
+
+    function PushNotificationAllCustomer() {
+        var StartDate = $("#StartDate").val();
+        var EndDate = $("#EndDate").val();
+        var StandardId = $("#StandardId").val();
+        var IsBlock = $("#IsBlock").val();
+        var IsBlog = $("#IsBlog").val();
+        var GroupName = $("#GroupName").val();
+        var Type = $("#Type").val();
+        var City = $("#City").val();
+        var ExpiryStartDate = $("#ExpiryStartDate").val();
+        var ExpiryEndDate = $("#ExpiryEndDate").val();
+        var SchoolName = $("#SchoolName").val();
+        var Message = $(".notifications2").val();
+        var Title = $("#Title2").val();
+        $.ajax({
+            url: '@Url.Action(Actions.SendNotificationForAllCustomer, Controllers.User, new { area = "" })',
+            data: {
+                StartDate: StartDate
+                , EndDate: EndDate
+                , StandardId: StandardId
+                , IsBlock: IsBlock
+                , IsBlog: IsBlog
+                , GroupName: GroupName
+                , Type: Type
+                , City: City
+                , ExpiryStartDate: ExpiryStartDate
+                , ExpiryEndDate: ExpiryEndDate
+                , SchoolName: SchoolName
+                , Message: Message
+                , Title: Title
+            },
+            type: 'POST',
+            datatype: 'json',
+            success: function (data) {
+                window.location.reload();
+            }
+        });
+    }*@
+</script>
+
+

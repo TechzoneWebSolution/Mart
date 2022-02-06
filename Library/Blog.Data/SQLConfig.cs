@@ -14,6 +14,7 @@ namespace Blog.Data
         
 
         public const string UsersUpsert = "dbo.UsersUpsert";
+        public const string UserById = "dbo.UserById";
         public const string CustomerUpsert = "dbo.CustomerUpsert";
         public const string CustomerByDeviceId = "dbo.CustomerByDeviceId";
         public const string SubscriptionAll = "dbo.SubscriptionAll";

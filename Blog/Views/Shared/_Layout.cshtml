@@ -161,6 +161,11 @@
         .menu-toggler {
             display: none !important;
         }
+        .distdisable {
+            cursor: not-allowed;
+            pointer-events: none;
+            background-color: #e9ecef;
+        }
     </style>
 </head>
 <body class="page-header-fixed page-sidebar-closed-hide-logo page-content-white page-md">
@@ -180,24 +185,32 @@
                 </a>
                 <ul class="topmenuul">
                     <li class="topmenuli"><a href="@Url.Action(Actions.Index, Controllers.Dashboard, new { area = "" })" id="lnkMenuDashboard">Dashboard</a></li>
-                    <li class="topmenuli"><a href="@Url.Action(Actions.Index, Controllers.State, new { area = "" })" id="lnkMenuState">State</a></li>
-                    <li class="topmenuli"><a href="@Url.Action(Actions.Index, Controllers.ProductType, new { area = "" })" id="lnkMenuProductType">Product Type</a></li>
-                    <li class="topmenuli"><a href="@Url.Action(Actions.Index, Controllers.Products, new { area = "" })" id="lnkMenuProducts">Products</a></li>
+
+                    @if (ProjectSession.UserType == 1)
+                    {
+                        <li class="topmenuli"><a href="@Url.Action(Actions.Index, Controllers.State, new { area = "" })" id="lnkMenuState">State</a></li>
+                        <li class="topmenuli"><a href="@Url.Action(Actions.Index, Controllers.ProductType, new { area = "" })" id="lnkMenuProductType">Product Type</a></li>
+                        <li class="topmenuli"><a href="@Url.Action(Actions.Index, Controllers.Products, new { area = "" })" id="lnkMenuProducts">Products</a></li>
+                    }
+                    else
+                    {
+                        <li class="topmenuli"><a href="@Url.Action(Actions.Profile, Controllers.User, new { area = "" })" id="lnkMenuUser">Profile</a></li>
+                    }
                     @*<li class="topmenuli"><a href="@Url.Action(Actions.Index, Controllers.District, new { area = "" })" id="lnkMenuDistrict">Vegitables</a></li>*@
                     @*<li class="topmenuli"><a href="@Url.Action(Actions.Index, Controllers.Standard, new { area = "" })" id="lnkMenuStandard">Standard</a></li>*@
                     @*<li class="topmenuli">
-                            <a data-toggle="dropdown">
-                                Exam
-                                <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu dropdown-menu-right" style="width:20%;position:inherit;">
-                                <li><a href="@Url.Action(Actions.Index, Controllers.Exam, new { area = "" })">Exam</a></li>
-                                <li><a href="@Url.Action(Actions.Index, Controllers.ExamSubject, new { area = "" })">Subject</a></li>
-                                <li><a href="@Url.Action(Actions.Index, Controllers.ExamChapter, new { area = "" })">Chapter</a></li>
-                                <li><a href="@Url.Action(Actions.Index, Controllers.ExamQuestion, new { area = "" })">Question</a></li>
-                                <li><a href="@Url.Action(Actions.Index, Controllers.ExamVSStandard, new { area = "" })">Exam Standard</a></li>
-                            </ul>
-                        </li>*@
+            <a data-toggle="dropdown">
+                Exam
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-right" style="width:20%;position:inherit;">
+                <li><a href="@Url.Action(Actions.Index, Controllers.Exam, new { area = "" })">Exam</a></li>
+                <li><a href="@Url.Action(Actions.Index, Controllers.ExamSubject, new { area = "" })">Subject</a></li>
+                <li><a href="@Url.Action(Actions.Index, Controllers.ExamChapter, new { area = "" })">Chapter</a></li>
+                <li><a href="@Url.Action(Actions.Index, Controllers.ExamQuestion, new { area = "" })">Question</a></li>
+                <li><a href="@Url.Action(Actions.Index, Controllers.ExamVSStandard, new { area = "" })">Exam Standard</a></li>
+            </ul>
+        </li>*@
                     <li class="topmenuli"><a href="@Url.Action(Actions.Logout, Controllers.Account, new { area = "" })" id="Logoot">Log Out</a></li>
                 </ul>
                 <div class="top-menu">
@@ -276,8 +289,8 @@
                 case '@Controllers.Dashboard':
                     setActiveLink($('#lnkMenuDashboard').attr('id'));
                     break;
-                case '@Controllers.Users':
-                    setActiveLink($('#lnkMenuUsers').attr('id'));
+                case '@Controllers.User':
+                    setActiveLink($('#lnkMenuUser').attr('id'));
                     break;
                 case '@Controllers.State':
                     setActiveLink($('#lnkMenuState').attr('id'));
@@ -289,6 +302,9 @@
                     setActiveLink($('#lnkMenuProductType').attr('id'));
                     break;
                 case '@Controllers.Products':
+                    setActiveLink($('#lnkMenuProducts').attr('id'));
+                    break;
+                 case '@Controllers.ProductStockLedger':
                     setActiveLink($('#lnkMenuProducts').attr('id'));
                     break;
                 @*case '@Controllers.SubScription':

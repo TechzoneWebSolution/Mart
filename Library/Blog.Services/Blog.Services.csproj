@@ -122,19 +122,10 @@
     <Compile Include="Contract\AbstractProductStockLedgerServices.cs" />
     <Compile Include="Contract\AbstractProductsServices.cs" />
     <Compile Include="Contract\AbstractProductTypeServices.cs" />
-    <Compile Include="Contract\AbstractExamServices.cs" />
-    <Compile Include="Contract\AbstractExamQuestionServices.cs" />
-    <Compile Include="Contract\AbstractExamvsStandardServices.cs" />
-    <Compile Include="Contract\AbstractExamSubjectServices.cs" />
-    <Compile Include="Contract\AbstractExamChapterServices.cs" />
     <Compile Include="Contract\AbstractCustomerServices.cs" />
     <Compile Include="Contract\AbstractOrderPaymentServices.cs" />
     <Compile Include="Contract\AbstractOrderDetailsServices.cs" />
-    <Compile Include="Contract\AbstractStandardServices.cs" />
     <Compile Include="Contract\AbstractStateServices.cs" />
-    <Compile Include="Contract\AbstractSubjectServices.cs" />
-    <Compile Include="Contract\AbstractExamStandardServices.cs" />
-    <Compile Include="Contract\AbstractSubScriptionServices.cs" />
     <Compile Include="Contract\AbstractUserServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ServiceModule.cs" />
@@ -142,19 +133,10 @@
     <Compile Include="V1\ProductStockLedgerServices.cs" />
     <Compile Include="V1\ProductsServices.cs" />
     <Compile Include="V1\ProductTypeServices.cs" />
-    <Compile Include="V1\ExamStandardServices.cs" />
-    <Compile Include="V1\ExamServices.cs" />
-    <Compile Include="V1\ExamQuestionServices.cs" />
-    <Compile Include="V1\ExamvsStandardServices.cs" />
-    <Compile Include="V1\ExamSubjectServices.cs" />
-    <Compile Include="V1\ExamChapterServices.cs" />
     <Compile Include="V1\OrderPaymentServices.cs" />
     <Compile Include="V1\OrderDetailsServices.cs" />
-    <Compile Include="V1\StandardServices.cs" />
     <Compile Include="V1\CustomerServices.cs" />
     <Compile Include="V1\StateServices.cs" />
-    <Compile Include="V1\SubjectServices.cs" />
-    <Compile Include="V1\SubScriptionServices.cs" />
     <Compile Include="V1\UserServices.cs" />
   </ItemGroup>
   <ItemGroup>

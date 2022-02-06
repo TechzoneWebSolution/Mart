@@ -96,19 +96,10 @@
     <Compile Include="Contract\AbstractProductStockLedgerDao.cs" />
     <Compile Include="Contract\AbstractProductsDao.cs" />
     <Compile Include="Contract\AbstractProductTypeDao.cs" />
-    <Compile Include="Contract\AbstractExamDao.cs" />
-    <Compile Include="Contract\AbstractExamQuestionDao.cs" />
-    <Compile Include="Contract\AbstractExamvsStandardDao.cs" />
-    <Compile Include="Contract\AbstractExamSubjectDao.cs" />
-    <Compile Include="Contract\AbstractExamChapterDao.cs" />
     <Compile Include="Contract\AbstractCustomerDao.cs" />
-    <Compile Include="Contract\AbstractExamStandardDao.cs" />
     <Compile Include="Contract\AbstractOrderPaymentDao.cs" />
     <Compile Include="Contract\AbstractOrderDetailsDao.cs" />
     <Compile Include="Contract\AbstractStateDao.cs" />
-    <Compile Include="Contract\AbstractSubjectDao.cs" />
-    <Compile Include="Contract\AbstractSubScriptionDao.cs" />
-    <Compile Include="Contract\AbstractStandardDao.cs" />
     <Compile Include="Contract\AbstractUserDao.cs" />
     <Compile Include="DataModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -117,19 +108,10 @@
     <Compile Include="V1\ProductStockLedgerDao.cs" />
     <Compile Include="V1\ProductsDao.cs" />
     <Compile Include="V1\ProductTypeDao.cs" />
-    <Compile Include="V1\ExamStandardDao.cs" />
-    <Compile Include="V1\ExamDao.cs" />
-    <Compile Include="V1\ExamQuestionDao.cs" />
-    <Compile Include="V1\ExamvsStandardDao.cs" />
-    <Compile Include="V1\ExamSubjectDao.cs" />
-    <Compile Include="V1\ExamChapterDao.cs" />
     <Compile Include="V1\OrderPaymentDao.cs" />
     <Compile Include="V1\OrderDetailsDao.cs" />
     <Compile Include="V1\StateDao.cs" />
-    <Compile Include="V1\SubjectDao.cs" />
-    <Compile Include="V1\SubScriptionDao.cs" />
     <Compile Include="V1\CustomerDao.cs" />
-    <Compile Include="V1\StandardDao.cs" />
     <Compile Include="V1\UserDao.cs" />
   </ItemGroup>
   <ItemGroup>
